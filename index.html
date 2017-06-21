@@ -1,21 +1,126 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <!-- Latest compiled and minified Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- My CSS -->
-    <link rel="stylesheet" href="./assets/css/style.css">
-  </head>
-  <body>
+
+<head>
+	<meta lang="en-us">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=yes">
+	<title class="fa fa-check-square" aria-hidden="true">Make the web great again</title>
+	<link rel="shortcut icon" href="assets/images/beer-512.png">
+ 	<!-- <script src="https://use.fontawesome.com/a1ae226c56.js"></script> -->
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css"
+	
+	<!-- jQuery -->
+	<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<style>
+		.form {
+			background-color: blue;
+			border: 1px solid #000;
+			padding: 5px;
+		}
+
+		.main-area {
+			background-color: pink;
+			border: 1px solid #000;
+		}
+		.header {
+			background-color: yellow;
+			border: 1px solid #000;
+		}
+
+		.map {
+			background-color: lightblue;
+			height: 400px;
+			border: 1px solid #000;
+		}
+
+		.results {
+			background-color: lightgreen;
+			border: 1px solid #000;
+			height: 450px;
+		}
+	</style>
+
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-10 col-lg-offset-1 header">
+				<h1 class="h1 h1-default">
+					Make Your Own Pub Crawl
+				</h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-10 col-lg-offset-1 main-area">
+				<div class="row">
+					<div class="col-lg-9">
+	
+						<div class="row">
+							<div class="col-lg-12 form">
+								<form>
+									<input type="text" placeholder="Starter Location" id="startLocation">
+									<input type="text" placeholder="End Location" id="endLocation">
+									  <button class="dropdown btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+									    Travel Type
+									    <span class="caret"></span>
+									  </button>
+										<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+											<li id="walking">Walking</li>
+											<li id="bicycle">Bicycle</li>
+											<li id="rideshare">Rideshare</li>
+										</ul>
+									<button type="submit" class="btn btn-success" label="submit" input="submit">
+										LOAD MAP
+									</button>
+								</form>
+							</div>
+
+							<div class="col-lg-12 map">
+								<h2>
+									Map will load here
+								</h2>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-lg-3 results">
+						<p>
+							This will hold the current crawl.
+						</p>
+					</div>
+
+	</div>
+<script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCX2m5h11YLNMZ9rBwroti06vU5Kva2xMU",
+    authDomain: "pubcrawl-8c3f9.firebaseapp.com",
+    databaseURL: "https://pubcrawl-8c3f9.firebaseio.com",
+    projectId: "pubcrawl-8c3f9",
+    storageBucket: "",
+    messagingSenderId: "631317290849"
+  };
+  firebase.initializeApp(config);
+</script><script src="assets/js/main.js"></script>
+
+</body>
 
 
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <!-- My JavaScript -->
-    <script type="text/javascript" src="./assets/javascript/main.js"></script>
-  </body>
 </html>
