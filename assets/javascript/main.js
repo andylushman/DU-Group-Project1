@@ -20,8 +20,18 @@ function initMap() {
   //Add marker
   var marker = new google.maps.Marker({
     position: {lat: 39.758259, lng: -105.007198},
-    map: map
-  })
+    map: map,
+    icon: "https:developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+  });
+  //Add InfoWindow
+  var infoWindow: new google.maps.infoWindow({
+    content: "<h1>Denver Beer Co</h1"
+  });
+  //Add listener for Info Window
+  marker.addListener("click", function(){
+    infoWindow.open(map, marker);
+  });
+
 };
 
 
