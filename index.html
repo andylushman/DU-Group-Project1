@@ -5,100 +5,107 @@
 	<meta lang="en-us">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=yes">
-	<title class="fa fa-check-square" aria-hidden="true">Make the web great again</title>
+	<title class="fa fa-check-square" aria-hidden="true">Brewery Tour</title>
 	<link rel="shortcut icon" href="assets/images/beer-512.png">
- 	<!-- <script src="https://use.fontawesome.com/a1ae226c56.js"></script> -->
 
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css"
+	<!-- Font Awesome -->
+ 	<script src="https://use.fontawesome.com/a1ae226c56.js"></script>
 
 	<!-- jQuery -->
 	<script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-	<!-- Latest compiled and minified JavaScript -->
+	<!-- Latest compiled and minified BootStrap -->
+	<!-- BootStrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Bootstrap JS -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+	<!-- Our CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 
 <body>
 	<div class="container-fluid">
+		<!-- Row for Header -->
 		<div class="row">
-			<div class="col-lg-10 col-lg-offset-1 header">
+			<div class="col-xs-12 header text-center">
 				<h1 class="h1 h1-default">
 					Make Your Own Pub Crawl
 				</h1>
 			</div>
 		</div>
-
+		<!-- Row For User Options -->
 		<div class="row">
-			<div class="col-lg-10 col-lg-offset-1 main-area">
-				<div class="row">
-					<div class="col-lg-9">
-
-						<div class="row">
-							<div class="col-lg-12 form">
-								<form>
-									<input type="text" placeholder="Starter Location" id="startLocation">
-									<input type="text" placeholder="End Location" id="endLocation">
-									  <button class="dropdown btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-									    Travel Type
-									    <span class="caret"></span>
-									  </button>
-										<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-											<li id="walking">Walking</li>
-											<li id="bicycle">Bicycle</li>
-											<li id="rideshare">Rideshare</li>
-										</ul>
-									<button type="submit" class="btn btn-success" label="submit" input="submit">
-										LOAD MAP
-									</button>
-								</form>
-							</div>
-
-							<div class="col-lg-12 map">
-								<h2>
-									Map will load here
-								</h2>
-							</div>
-						</div>
-					</div>
-
-
-					<div class="col-lg-3 results">
-						<p>
-							This will hold the current crawl.
-						</p>
-					</div>
-				</div>
+			<div class="col-lg-12 form">
+				<form>
+					<input type="text" placeholder="Starter Location" id="startLocation">
+					<input type="text" placeholder="End Location" id="endLocation">
+						<button class="dropdown btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+							Travel Type
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+							<li id="walking">Walking</li>
+							<li id="bicycle">Bicycle</li>
+							<li id="rideshare">Rideshare</li>
+						</ul>
+					<button type="submit" class="btn btn-success" label="submit" input="submit">
+						LOAD MAP
+					</button>
+				</form>
 			</div>
+		</div> <!-- /Row For Options -->
+
+		<!-- Row for Map -->
 		<div class="row">
-			<div class="col-lg-12 footer footer-default">
+			<div class="col-xs-12">
+				<!-- Map -->
+				<div id="map"></div>
+			</div>
+		</div>
+
+		<!-- Row for Results -->
+		<div class="row">
+			<div class="col-lg-3 results">
+				<p>
+					This will hold the current crawl.
+				</p>
+			</div>
+		</div>
+		<!-- Row for Footer -->
+		<div class="row">
+			<div class="col-lg-3 footer text-center">
 				<p>&copy; Copyright 2017 Thirsty Travelers</p>
 			</div>
 		</div>
 
-	</div>
-  <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
-  <script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyCX2m5h11YLNMZ9rBwroti06vU5Kva2xMU",
-      authDomain: "pubcrawl-8c3f9.firebaseapp.com",
-      databaseURL: "https://pubcrawl-8c3f9.firebaseio.com",
-      projectId: "pubcrawl-8c3f9",
-      storageBucket: "",
-      messagingSenderId: "631317290849"
-    };
-    firebase.initializeApp(config);
-  </script><script src="assets/js/main.js"></script>
+	</div> <!-- Container -->
+
+	<!-- Link to Firebase -->
+	<script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyCX2m5h11YLNMZ9rBwroti06vU5Kva2xMU",
+	    authDomain: "pubcrawl-8c3f9.firebaseapp.com",
+	    databaseURL: "https://pubcrawl-8c3f9.firebaseio.com",
+	    projectId: "pubcrawl-8c3f9",
+	    storageBucket: "",
+	    messagingSenderId: "631317290849"
+	  };
+	firebase.initializeApp(config);
+	</script>
+
+	<!-- Google Maps API -->
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6mcqCJFzPLd_-UydR4nQRyb5O8kvIShM&callback=initMap">
+	</script>
+
+	<!-- Our Javascript -->
+	<script src="assets/javascript/main.js"></script>
 
 </body>
-
-
 
 </html>

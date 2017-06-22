@@ -8,28 +8,27 @@
   padding: 5px;
 }
 
-.main-area {
-  background-color: pink;
-  border: 1px solid #000;
-}
 .header {
   background-color: yellow;
-  border: 1px solid #000;
-}
-
-.map {
-  height: 400px;
-  width: 100%
   border: 1px solid #000;
 }
 
 .results {
   background-color: lightgreen;
   border: 1px solid #000;
-  height: 450px;
+  height: 10em;
 }
 
 .footer {
   padding: 10px;
-  text-align: center;
+}
+
+/***********************
+    Maps
+***********************/
+
+#map {
+  height: 400px;
+  width: 100%
+  border: 1px solid #000;
 }
