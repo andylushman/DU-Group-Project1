@@ -5,17 +5,17 @@
 // Array of markers
 var markers = [
   {
-    coords:{lat:42.4668,lng:-70.9495},
+    coords:{lat:39.758241,lng:-105.007269},
     iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
-    content:'<h1>Lynn MA</h1>'
+    content:"<h1>Denver Beer Co</h1>"
   },
   {
-    coords:{lat:42.8584,lng:-70.9300},
-    content:'<h1>Amesbury MA</h1>'
+    coords:{lat:39.758641,lng:-105.009066},
+    content:"<h1>Ale House</h1>"
   },
-  {
-    coords:{lat:42.7762,lng:-71.0773}
-  }
+  // {
+  //   coords:{lat:,lng:-}
+  // }
 ];
 
 
@@ -28,14 +28,14 @@ function initMap(){
   // Map options
   var options = {
     zoom:8,
-    center:{lat:42.3601,lng:-71.0589}
+    center:{lat:39.7392,lng:-104.9903}
   }
 
   // New map
-  var map = new google.maps.Map(document.getElementsByClassName('map'), options);
+  var map = new google.maps.Map(document.getElementsByClassName("map"), options);
 
   // Listen for click on map
-  google.maps.event.addListener(map, 'click', function(event){
+  google.maps.event.addListener(map, "click", function(event){
     // Add marker
     addMarker({coords:event.latLng});
   });
@@ -66,7 +66,7 @@ function initMap(){
         content:props.content
       });
 
-      marker.addListener('click', function(){
+      marker.addListener("click", function(){
         infoWindow.open(map, marker);
       });
     }
