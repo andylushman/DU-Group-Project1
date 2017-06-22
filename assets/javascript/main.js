@@ -28,8 +28,8 @@ var markers = [
 function initMap(){
   // Map options
   var options = {
-    zoom:14,
-    center:{lat:39.7392,lng:-104.9903}
+    zoom: 13,
+    center: {lat:39.7392,lng:-104.9903}
   }
 
   // New map
