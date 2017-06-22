@@ -2,7 +2,7 @@
 //GLOBAL VARIABLES
 //=======================
 
-
+alert("Works!")
 
 
 //=======================
@@ -16,7 +16,7 @@ function initMap() {
     center: {lat: 39.7392, lng: -104.9903}
   }
   //Putting the new map on the page
-  var map = new google.Map($(".map"), options)
+  var map = new google.Map($(".map"), option)
   //Add marker
   var marker = new google.maps.Marker({
     position: {lat: 39.758259, lng: -105.007198},
@@ -24,7 +24,7 @@ function initMap() {
     icon: "https:developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
   });
   //Add InfoWindow
-  var infoWindow: new google.maps.infoWindow({
+  var infoWindow = new google.maps.infoWindow({
     content: "<h1>Denver Beer Co</h1"
   });
   //Add listener for Info Window
