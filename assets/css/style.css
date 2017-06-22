@@ -16,11 +16,12 @@
 .results {
   background-color: lightgreen;
   border: 1px solid #000;
-  height: 10em;
+  height: 300px;
 }
 
 .footer {
   padding: 10px;
+  background-color: blue
 }
 
 /***********************
@@ -28,7 +29,7 @@
 ***********************/
 
 #map {
-  height: 400px;
+  height: 300px;
   width: 100%
   border: 1px solid #000;
 }
