@@ -16,9 +16,12 @@
 .results {
   background-color: lightgreen;
   border: 1px solid #000;
-  height: 450px;
+  height: 10em;
 }
 
+.footer {
+  padding: 10px;
+}
 
 /***********************
     Maps
