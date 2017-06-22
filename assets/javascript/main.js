@@ -11,6 +11,7 @@ var markers = [
   },
   {
     coords:{lat:39.758641,lng:-105.009066},
+    iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
     content:"<h1>Ale House</h1>"
   },
   // {
@@ -27,12 +28,12 @@ var markers = [
 function initMap(){
   // Map options
   var options = {
-    zoom:8,
+    zoom:14,
     center:{lat:39.7392,lng:-104.9903}
   }
 
   // New map
-  var map = new google.maps.Map(document.getElementsByClassName("map"), options);
+  var map = new google.maps.Map(document.getElementById("map"), options);
 
   // Listen for click on map
   google.maps.event.addListener(map, "click", function(event){

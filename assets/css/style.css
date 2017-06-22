@@ -24,7 +24,7 @@
     Maps
 ***********************/
 
-.map {
+#map {
   height: 400px;
   width: 100%
   border: 1px solid #000;
