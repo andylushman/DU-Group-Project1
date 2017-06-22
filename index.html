@@ -25,7 +25,6 @@
 
 	<!-- Our CSS -->
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-
 </head>
 
 <body>
@@ -37,14 +36,15 @@
 				</h1>
 			</div>
 		</div>
-
+		<!-- New Row -->
 		<div class="row">
 			<div class="col-lg-10 col-lg-offset-1 main-area">
 				<div class="row">
 					<div class="col-lg-9">
-
+						<!-- New Row -->
 						<div class="row">
 							<div class="col-lg-12 form">
+								<!-- Form -->
 								<form>
 									<input type="text" placeholder="Starter Location" id="startLocation">
 									<input type="text" placeholder="End Location" id="endLocation">
@@ -60,8 +60,9 @@
 									<button type="submit" class="btn btn-success" label="submit" input="submit">
 										LOAD MAP
 									</button>
-								</form>
+								</form> <!-- /Form -->
 							</div>
+						</div> <!-- /Row -->
 
 							<div class="col-lg-12 map">
 								<h2>
@@ -80,11 +81,6 @@
 
 	</div>
 
-
-<!-- Google Maps API -->
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6mcqCJFzPLd_-UydR4nQRyb5O8kvIShM&callback=initMap">
-</script>
-
 <!-- Link to Firebase -->
 <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
 <script>
@@ -98,8 +94,14 @@
     messagingSenderId: "631317290849"
   };
   firebase.initializeApp(config);
+</script>
 
-</script><script src="assets/javascript/main.js"></script>
+<!-- Google Maps API -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6mcqCJFzPLd_-UydR4nQRyb5O8kvIShM&callback=initMap">
+</script>
+
+<!-- Our Javascript -->
+<script src="assets/javascript/main.js"></script>
 
 </body>
 
