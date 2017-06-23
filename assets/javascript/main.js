@@ -6,7 +6,7 @@
 var map;
 var infoWindow;
 
-var currentPlaceId;
+var currentPlaceId = "ChIJs2kmHut4bIcRkQyaPSHmobk";
 var currentPlaceImage = "assets/images/tulips.jpg";
 var currentPlaceName;
 var currentPlaceReview;
@@ -99,10 +99,16 @@ function createMarker(place) {
   });
   //When a marker is clicked, run this function
   google.maps.event.addListener(marker, 'click', function() {
-    infoWindow.setContent("<h4>" + place.name + "</h4><h5> Place ID:" + place.place_id + "</h5>");
+    infoWindow.setContent("<h4>" + place.name + "</h4><h5> Place ID:" + place.place_id + "</h5><button class= 'btn btn-primary' id='addToCrawl'>");
     currentPlaceId = place.place_id;
     infoWindow.open(map, this);
     console.log(currentPlaceId);
+    //Click on the addToCrawl button
+    $("#addToCrawl").on("click", function(){
+      ajaxCall();
+
+    //  newCard();
+    });
   });
 }; //end createMarker()
 
@@ -131,23 +137,26 @@ function newCard() {
   }
 }// newCard();
 
+//Function to call ajax
+function ajaxCall(){
+  $.ajax ({
+    url: googlePlacesQuery,
+    headers: {
+      "Access-Control-Allow-Origin": true
+    },
+    method: 'get'
+  }).done(function (response){
+      console.log(response.result.photos[0].html_attributions);
+      currentPlaceName = response.result.name;
+      currentPlaceImage = response.result.photos[0].html_attributions.slice(15);
+      currentPlaceReview = response.result.reviews[0].text;
+      currentPlaceAuthor = response.result.reviews[0].author_name;
+      currentPlaceHours = response.result.opening_hours.weekday_text;
+      newCard();
+  });
+} //end ajax()
+
 
 //=======================
 //MAIN PROCESS
 //=======================
-
-$.ajax ({
-  url: googlePlacesQuery,
-  headers: {
-    "Access-Control-Allow-Origin": true
-  },
-  method: 'get'
-}).done(function (response){
-    console.log(response.result.photos[0].html_attributions);
-    currentPlaceName = response.result.name;
-    currentPlaceImage = response.result.photos[0].html_attributions.slice(15);
-    currentPlaceReview = response.result.reviews[0].text;
-    currentPlaceAuthor = response.result.reviews[0].author_name;
-    currentPlaceHours = response.result.opening_hours.weekday_text;
-    newCard();
-});
