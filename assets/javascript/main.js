@@ -6,7 +6,7 @@
 var map;
 var infoWindow;
 
-var currentPlaceId = "ChIJgwMHsdl-bIcRN8G1_C4crgI";
+var currentPlaceId;
 var currentPlaceImage = "assets/images/tulips.jpg";
 var currentPlaceName;
 var currentPlaceReview;
@@ -100,7 +100,9 @@ function createMarker(place) {
   //When a marker is clicked, run this function
   google.maps.event.addListener(marker, 'click', function() {
     infoWindow.setContent("<h4>" + place.name + "</h4><h5> Place ID:" + place.place_id + "</h5>");
+    currentPlaceId = place.place_id;
     infoWindow.open(map, this);
+    console.log(currentPlaceId);
   });
 }; //end createMarker()
 
