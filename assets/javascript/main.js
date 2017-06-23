@@ -87,10 +87,10 @@ function initMap(){
 }
 
 function newCard() {
-  $("#results").append('<div class="row"><div class="col-lg-10 col-lg-offset-1 collapse" id="accordion">');  
+  $("#results").append('<div class="row"><div class="col-lg-10 col-lg-offset-1 collapse" id="results">');  
 
   $("#results").append('<div>');
-  $("#restuls").append(currentPlaceImage);
+  $("#results").append(currentPlaceImage);
   // $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
   $("#results").append('<p>&quot;' + currentPlaceReview + '&quot;</p></p class="author"> -' +currentPlaceAuthor+ "</p></div></div></div>");
   $("#results").append('<h5>Hours of Operation</h5><div>' + currentPlaceHours + '</div');
@@ -113,11 +113,11 @@ $.ajax ({
     newCard();
 });
 
-  // $( function() {
-  //   $( "#results" ).accordion({
-  //     collapsible: true
-  //   });
-  // } );
+  $( function() {
+    $( "#results" ).accordion({
+      collapsible: true
+    });
+  } );
 //=======================
 //MAIN PROCESS
 //=======================
