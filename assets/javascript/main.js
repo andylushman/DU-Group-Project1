@@ -17,6 +17,7 @@ var currentPlaceHours;
  var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
 console.log(googlePlacesQuery);
 
+
 //=======================
 //FUNCTIONS
 //=======================
@@ -103,6 +104,7 @@ function createMarker(place) {
   });
 }; //end createMarker()
 
+//Function to add new card
 function newCard() {
   //Create a new card div
   $("#results").append('<button class="accordion btn btn-primary btn-block">'+currentPlaceName +'  <span class="caret"></span></button><div class="panel" id="card"</div>');
@@ -128,6 +130,10 @@ function newCard() {
 }// newCard();
 
 
+//=======================
+//MAIN PROCESS
+//=======================
+
 $.ajax ({
   url: googlePlacesQuery,
   headers: {
@@ -143,13 +149,3 @@ $.ajax ({
     currentPlaceHours = response.result.opening_hours.weekday_text;
     newCard();
 });
-
-  // $(function() {
-  //   $( "#results" ).accordion({
-  //     collapsible: true
-  //   });
-  // } );
-
-//=======================
-//MAIN PROCESS
-//=======================
