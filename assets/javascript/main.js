@@ -125,8 +125,7 @@ function newCard() {
           }
       }
   }
-}
-// newCard();
+}// newCard();
 
 
 $.ajax ({
