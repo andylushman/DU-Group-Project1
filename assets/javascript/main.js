@@ -6,12 +6,12 @@
 var markers = [
   {
     coords:{lat:39.758241,lng:-105.007269},
-    iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+    iconImage:"https:developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
     content:"<h1>Denver Beer Co</h1>"
   },
   {
     coords:{lat:39.758641,lng:-105.009066},
-    iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+    iconImage:"https:developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
     content:"<h1>Ale House</h1>"
   },
   // {
@@ -35,12 +35,6 @@ function initMap(){
   // New map
   var map = new google.maps.Map(document.getElementById("map"), options);
 
-  // Listen for click on map
-  google.maps.event.addListener(map, "click", function(event){
-    // Add marker
-    addMarker({coords:event.latLng});
-  });
-
   // Loop through markers
   for(var i = 0;i < markers.length;i++){
     // Add marker
@@ -58,6 +52,10 @@ function initMap(){
     // Check for customicon
     if(props.iconImage){
       // Set icon image
+      // var icon = new google.maps.Icon({
+      //   url: ,
+      //   scaledSize: new google.maps.Size(15, 15)
+      // });
       marker.setIcon(props.iconImage);
     }
 
@@ -72,7 +70,7 @@ function initMap(){
       });
     }
   }
-}
+} //initMap();
 
 
 
@@ -80,3 +78,14 @@ function initMap(){
 //=======================
 //MAIN PROCESS
 //=======================
+// var googleMapsAPIKey = "AIzaSyA6mcqCJFzPLd_-UydR4nQRyb5O8kvIShM";
+// var googleMapsAPIQuery =  "https://maps.googleapis.com/maps/api/js/json?key=AIzaSyA6mcqCJFzPLd_-UydR4nQRyb5O8kvIShM&libraries=places";
+// $.ajax ({
+//   url: googleMapsAPIQuery,
+//   headers: {
+//     "Access-Control-Allow-Origin": true
+//   },
+//   method: 'get'
+// }).done(function (response){
+//   console.log(response);
+// });
