@@ -8,9 +8,13 @@ var currentPlaceImage = "assets/images/tulips.jpg";
 var currentPlaceName;
 var currentPlaceReview;
 var currentPlaceAuthor;
+var currentPlaceHours;
 
  var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
  var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
+console.log(googlePlacesQuery);
+
+
 // Array of markers
 var markers = [
   {
@@ -83,12 +87,13 @@ function initMap(){
 }
 
 function newCard() {
-  $("#results").append('<div class="row"><div class="col-lg-10 col-lg-offset-1 collapse">');  
-  $("#results").append('<button type="button" class="btn btn-success btn-block" data-toggle="collapse" data-target="#demo">  '+ currentPlaceName + '<span class="caret">  </span></button>');
-  $("#results").append('<div id="demo" class="collapse">');
-  $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
-  $("#results").append('<p>&quot;' + currentPlaceReview + '&quot;</p></p class="author"> -' +currentPlaceAuthor+ "</p></div></div></div>");
+  $("#results").append('<div class="row"><div class="col-lg-10 col-lg-offset-1 collapse" id="accordion">');  
 
+  $("#results").append('<div>');
+  $("#restuls").append(currentPlaceImage);
+  // $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
+  $("#results").append('<p>&quot;' + currentPlaceReview + '&quot;</p></p class="author"> -' +currentPlaceAuthor+ "</p></div></div></div>");
+  $("#results").append('<h5>Hours of Operation</h5><div>' + currentPlaceHours + '</div');
 }
 // newCard();
 
@@ -99,14 +104,20 @@ $.ajax ({
   }, 
   method: 'get'
 }).done(function (response){
-    console.log(response.result.name);
+    console.log(response.result.photos[0].html_attributions);
     currentPlaceName = response.result.name;
-    currentPlaceImage = response.result.photos[0].html_attributions;
+    currentPlaceImage = response.result.photos[0].html_attributions.slice(15);
     currentPlaceReview = response.result.reviews[0].text;
     currentPlaceAuthor = response.result.reviews[0].author_name;
+    currentPlaceHours = response.result.opening_hours.weekday_text;
     newCard();
 });
 
+  $( function() {
+    $( "#results" ).accordion({
+      collapsible: true
+    });
+  } );
 //=======================
 //MAIN PROCESS
 //=======================
