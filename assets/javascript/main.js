@@ -1,7 +1,16 @@
+//CORS plugin is needed...
 //=======================
 //GLOBAL VARIABLES
-//=======================
+//=====================
+// 
+var currentPlaceId = "ChIJgwMHsdl-bIcRN8G1_C4crgI";
+var currentPlaceImage = "assets/images/tulips.jpg";
+var currentPlaceName;
+var currentPlaceReview;
+var currentPlaceAuthor;
 
+ var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
+ var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
 // Array of markers
 var markers = [
   {
@@ -18,7 +27,6 @@ var markers = [
   //   coords:{lat:,lng:-}
   // }
 ];
-
 
 
 //=======================
@@ -74,8 +82,30 @@ function initMap(){
   }
 }
 
+function newCard() {
+  $("#results").append('<div class="row"><div class="col-lg-10 col-lg-offset-1 collapse">');  
+  $("#results").append('<button type="button" class="btn btn-success btn-block" data-toggle="collapse" data-target="#demo">  '+ currentPlaceName + '<span class="caret">  </span></button>');
+  $("#results").append('<div id="demo" class="collapse">');
+  $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
+  $("#results").append('<p>&quot;' + currentPlaceReview + '&quot;</p></p class="author"> -' +currentPlaceAuthor+ "</p></div></div></div>");
 
+}
+// newCard();
 
+$.ajax ({
+  url: googlePlacesQuery,
+  headers: {
+    "Access-Control-Allow-Origin": true
+  }, 
+  method: 'get'
+}).done(function (response){
+    console.log(response.result.name);
+    currentPlaceName = response.result.name;
+    currentPlaceImage = response.result.photos[0].html_attributions;
+    currentPlaceReview = response.result.reviews[0].text;
+    currentPlaceAuthor = response.result.reviews[0].author_name;
+    newCard();
+});
 
 //=======================
 //MAIN PROCESS
