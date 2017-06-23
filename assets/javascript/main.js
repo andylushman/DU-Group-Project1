@@ -113,11 +113,11 @@ $.ajax ({
     newCard();
 });
 
-  $( function() {
-    $( "#results" ).accordion({
-      collapsible: true
-    });
-  } );
+  // $( function() {
+  //   $( "#results" ).accordion({
+  //     collapsible: true
+  //   });
+  // } );
 //=======================
 //MAIN PROCESS
 //=======================
