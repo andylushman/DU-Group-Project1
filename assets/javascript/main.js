@@ -16,6 +16,7 @@ var currentPlaceHours;
  var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
  var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
 console.log(googlePlacesQuery);
+
 //=======================
 //FUNCTIONS
 //=======================
@@ -103,15 +104,30 @@ function createMarker(place) {
 }; //end createMarker()
 
 function newCard() {
-  $("#results").append('<div class="row"><div class="col-lg-10 col-lg-offset-1 collapse" id="results">');
-
-  $("#results").append('<div>');
-  $("#results").append(currentPlaceImage);
+  //Create a new card div
+  $("#results").append('<button class="accordion btn btn-primary btn-block">'+currentPlaceName +'  <span class="caret"></span></button><div class="panel" id="card"</div>');
+  $("#card").append(currentPlaceImage);
   // $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
-  $("#results").append('<p>&quot;' + currentPlaceReview + '&quot;</p></p class="author"> -' +currentPlaceAuthor+ "</p></div></div></div>");
-  $("#results").append('<h5>Hours of Operation</h5><div>' + currentPlaceHours + '</div');
+  $("#card").append('<p>&quot;' + currentPlaceReview + '&quot;</p><p class="author"> -' +currentPlaceAuthor+ "</p>");
+  $("#card").append('<h5>Hours of Operation</h5><p>' + currentPlaceHours + '</p');
+
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+
+  for (i = 0; i < acc.length; i++) {
+      acc[i].onclick = function(){
+          this.classList.toggle("active");
+          var panel = this.nextElementSibling;
+          if (panel.style.display === "block") {
+              panel.style.display = "none";
+          } else {
+              panel.style.display = "block";
+          }
+      }
+  }
 }
 // newCard();
+
 
 $.ajax ({
   url: googlePlacesQuery,
@@ -129,11 +145,12 @@ $.ajax ({
     newCard();
 });
 
-  $( function() {
-    $( "#results" ).accordion({
-      collapsible: true
-    });
-  } );
+  // $(function() {
+  //   $( "#results" ).accordion({
+  //     collapsible: true
+  //   });
+  // } );
+
 //=======================
 //MAIN PROCESS
 //=======================
