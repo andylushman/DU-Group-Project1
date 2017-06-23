@@ -1,10 +1,21 @@
+//CORS plugin is needed...
 //=======================
 //GLOBAL VARIABLES
-//=======================
+//=====================
+
 var map;
 var infoWindow;
 
+var currentPlaceId = "ChIJgwMHsdl-bIcRN8G1_C4crgI";
+var currentPlaceImage = "assets/images/tulips.jpg";
+var currentPlaceName;
+var currentPlaceReview;
+var currentPlaceAuthor;
+var currentPlaceHours;
 
+ var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
+ var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
+console.log(googlePlacesQuery);
 
 
 //=======================
@@ -93,9 +104,48 @@ function createMarker(place) {
   });
 }; //end createMarker()
 
+//Function to add new card
+function newCard() {
+  //Create a new card div
+  $("#results").append('<button class="accordion btn btn-primary btn-block">'+currentPlaceName +'  <span class="caret"></span></button><div class="panel" id="card"</div>');
+  $("#card").append(currentPlaceImage);
+  // $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
+  $("#card").append('<p>&quot;' + currentPlaceReview + '&quot;</p><p class="author"> -' +currentPlaceAuthor+ "</p>");
+  $("#card").append('<h5>Hours of Operation</h5><p>' + currentPlaceHours + '</p');
 
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+
+  for (i = 0; i < acc.length; i++) {
+      acc[i].onclick = function(){
+          this.classList.toggle("active");
+          var panel = this.nextElementSibling;
+          if (panel.style.display === "block") {
+              panel.style.display = "none";
+          } else {
+              panel.style.display = "block";
+          }
+      }
+  }
+}// newCard();
 
 
 //=======================
 //MAIN PROCESS
 //=======================
+
+$.ajax ({
+  url: googlePlacesQuery,
+  headers: {
+    "Access-Control-Allow-Origin": true
+  },
+  method: 'get'
+}).done(function (response){
+    console.log(response.result.photos[0].html_attributions);
+    currentPlaceName = response.result.name;
+    currentPlaceImage = response.result.photos[0].html_attributions.slice(15);
+    currentPlaceReview = response.result.reviews[0].text;
+    currentPlaceAuthor = response.result.reviews[0].author_name;
+    currentPlaceHours = response.result.opening_hours.weekday_text;
+    newCard();
+});
