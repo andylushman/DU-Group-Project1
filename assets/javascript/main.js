@@ -43,9 +43,17 @@ function callback(results, status) {
 //Create Marker Function
 function createMarker(place) {
   var placeLoc = place.geometry.location;
+  var image = {
+    url: "./assets/images/beer-512.png",
+    size: new google.maps.Size(71, 71),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(17, 34),
+    scaledSize: new google.maps.Size(25, 25)
+  };
   var marker = new google.maps.Marker({
     map: map,
-    position: place.geometry.location
+    position: place.geometry.location,
+    icon: image,
   });
   //When a marker is clicked, run this function
   google.maps.event.addListener(marker, 'click', function() {
