@@ -1,12 +1,21 @@
+//CORS plugin is needed...
 //=======================
 //GLOBAL VARIABLES
-//=======================
+//=====================
+
 var map;
 var infoWindow;
 
+var currentPlaceId = "ChIJgwMHsdl-bIcRN8G1_C4crgI";
+var currentPlaceImage = "assets/images/tulips.jpg";
+var currentPlaceName;
+var currentPlaceReview;
+var currentPlaceAuthor;
+var currentPlaceHours;
 
-
-
+ var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
+ var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
+console.log(googlePlacesQuery);
 //=======================
 //FUNCTIONS
 //=======================
@@ -93,9 +102,38 @@ function createMarker(place) {
   });
 }; //end createMarker()
 
+function newCard() {
+  $("#results").append('<div class="row"><div class="col-lg-10 col-lg-offset-1 collapse" id="results">');
 
+  $("#results").append('<div>');
+  $("#results").append(currentPlaceImage);
+  // $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
+  $("#results").append('<p>&quot;' + currentPlaceReview + '&quot;</p></p class="author"> -' +currentPlaceAuthor+ "</p></div></div></div>");
+  $("#results").append('<h5>Hours of Operation</h5><div>' + currentPlaceHours + '</div');
+}
+// newCard();
 
+$.ajax ({
+  url: googlePlacesQuery,
+  headers: {
+    "Access-Control-Allow-Origin": true
+  },
+  method: 'get'
+}).done(function (response){
+    console.log(response.result.photos[0].html_attributions);
+    currentPlaceName = response.result.name;
+    currentPlaceImage = response.result.photos[0].html_attributions.slice(15);
+    currentPlaceReview = response.result.reviews[0].text;
+    currentPlaceAuthor = response.result.reviews[0].author_name;
+    currentPlaceHours = response.result.opening_hours.weekday_text;
+    newCard();
+});
 
+  $( function() {
+    $( "#results" ).accordion({
+      collapsible: true
+    });
+  } );
 //=======================
 //MAIN PROCESS
 //=======================
