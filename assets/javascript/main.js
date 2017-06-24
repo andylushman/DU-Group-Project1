@@ -14,7 +14,7 @@ var currentPlaceReview = "Bob's is awesome";
 var currentPlaceRating = "3.8";
 var currentPlaceAuthor = "Don";
 var currentPlaceHours = "11:00 - 2:00am";
-var nextCard = 0;
+var nextCard = 1;
 var stopNumber =1;
 var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
 var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
@@ -106,8 +106,7 @@ function createMarker(place) {
     console.log(currentPlaceId);
     //Click on the addToCrawl button
     $("#addToCrawl").on("click", function(){
-      ajaxCall();
-      dataPush();
+       dataPush();
       newCard(); 
     });
   });
@@ -116,15 +115,16 @@ function createMarker(place) {
 //Function to add new card
 function newCard() {
   //To help with creating a new id for each card
-  nextCard ++;
+  
   console.log(nextCard);
   //Create a new card div
   database.ref().on("child_added", function(snapshot) {
-  $("#results").append('<button class="accordion btn btn-primary btn-block">'+ snapshot.val().name +'  <span class="caret"></span></button><div style="display: none" class="panel" id="card'+[nextCard]+'"</div>');
+
+  $("#results").append('<div><button class="accordion btn btn-primary btn-block">'+ snapshot.val().name +'  <span class="caret"></span></button><div style="display: none" class="panel" id="card'+[nextCard]+'"</div>');
   $("#card"+[nextCard]).append(snapshot.val().photo);
   // $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
   $("#card"+[nextCard]).append('<p>&quot;' + snapshot.val().review + '&quot;</p><p class="author"> -' +snapshot.val().author+ "</p>");
-  $("#card"+[nextCard]).append('<h5>Rating: ' + snapshot.val().rating + ' out of 5.</h5');
+  $("#card"+[nextCard]).append('<h5>Rating: ' + snapshot.val().rating + ' out of 5.</h5></div>');
 
   var acc = document.getElementsByClassName("accordion");
   var i;
@@ -141,6 +141,7 @@ function newCard() {
       };
   }
 });  
+  nextCard ++;
   }
 
   // newCard();
