@@ -113,7 +113,7 @@ function newCard() {
   nextCard ++;
   console.log(nextCard);
   //Create a new card div
-  $("#results").append('<button class="accordion btn btn-primary btn-block">'+currentPlaceName +'  <span class="caret"></span></button><div class="panel" id="card'+[nextCard]+'"</div>');
+  $("#results").append('<button class="accordion btn btn-primary btn-block">'+currentPlaceName +'  <span class="caret"></span></button><div style="display: none" class="panel" id="card'+[nextCard]+'"</div>');
   $("#card"+[nextCard]).append(currentPlaceImage);
   // $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
   $("#card"+[nextCard]).append('<p>&quot;' + currentPlaceReview + '&quot;</p><p class="author"> -' +currentPlaceAuthor+ "</p>");
