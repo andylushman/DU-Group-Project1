@@ -100,7 +100,7 @@ function createMarker(place) {
   });
   //When a marker is clicked, run this function
   google.maps.event.addListener(marker, 'click', function() {
-    infoWindow.setContent("<h4>" + place.name + "</h4><h5> Place ID:" + place.place_id + "</h5><button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
+    infoWindow.setContent("<h4>" + place.name + "</h4><<button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
     currentPlaceId = place.place_id;
     infoWindow.open(map, this);
     console.log(currentPlaceId);
