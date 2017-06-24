@@ -6,16 +6,13 @@
 var map;
 var infoWindow;
 
-var currentPlaceId = "ChIJgwMHsdl-bIcRN8G1_C4crgI";
-var currentPlaceImage = "assets/images/tulips.jpg";
+var currentPlaceId = "ChIJs2kmHut4bIcRkQyaPSHmobk";
+var currentPlaceImage;
 var currentPlaceName;
 var currentPlaceReview;
 var currentPlaceAuthor;
 var currentPlaceHours;
-
- var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
- var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
-console.log(googlePlacesQuery);
+var nextCard = 0;
 
 
 //=======================
@@ -99,19 +96,28 @@ function createMarker(place) {
   });
   //When a marker is clicked, run this function
   google.maps.event.addListener(marker, 'click', function() {
-    infoWindow.setContent("<h4>" + place.name + "</h4><h5> Place ID:" + place.place_id + "</h5>");
+    infoWindow.setContent("<h4>" + place.name + "</h4><h5> Place ID:" + place.place_id + "</h5><button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
+    currentPlaceId = place.place_id;
     infoWindow.open(map, this);
+    console.log(currentPlaceId);
+    //Click on the addToCrawl button
+    $("#addToCrawl").on("click", function(){
+      ajaxCall();
+    });
   });
 }; //end createMarker()
 
 //Function to add new card
 function newCard() {
+  //To help with creating a new id for each card
+  nextCard ++;
+  console.log(nextCard);
   //Create a new card div
-  $("#results").append('<button class="accordion btn btn-primary btn-block">'+currentPlaceName +'  <span class="caret"></span></button><div class="panel" id="card"</div>');
-  $("#card").append(currentPlaceImage);
+  $("#results").append('<button class="accordion btn btn-primary btn-block">'+currentPlaceName +'  <span class="caret"></span></button><div style="display: none" class="panel" id="card'+[nextCard]+'"</div>');
+  $("#card"+[nextCard]).append(currentPlaceImage);
   // $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
-  $("#card").append('<p>&quot;' + currentPlaceReview + '&quot;</p><p class="author"> -' +currentPlaceAuthor+ "</p>");
-  $("#card").append('<h5>Hours of Operation</h5><p>' + currentPlaceHours + '</p');
+  $("#card"+[nextCard]).append('<p>&quot;' + currentPlaceReview + '&quot;</p><p class="author"> -' +currentPlaceAuthor+ "</p>");
+  $("#card"+[nextCard]).append('<h5>Hours of Operation</h5><p>' + currentPlaceHours + '</p');
 
   var acc = document.getElementsByClassName("accordion");
   var i;
@@ -129,23 +135,31 @@ function newCard() {
   }
 }// newCard();
 
+//Function to call ajax
+function ajaxCall(){
+
+  var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
+  var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
+  console.log(googlePlacesQuery);
+
+  $.ajax ({
+    url: googlePlacesQuery,
+    headers: {
+      "Access-Control-Allow-Origin": true
+    },
+    method: 'get'
+  }).done(function (response){
+      console.log(response.result.photos[0].html_attributions);
+      currentPlaceName = response.result.name;
+      currentPlaceImage = response.result.photos[0].html_attributions.slice(15);
+      currentPlaceReview = response.result.reviews[0].text;
+      currentPlaceAuthor = response.result.reviews[0].author_name;
+      currentPlaceHours = response.result.opening_hours.weekday_text;
+      newCard();
+  });
+} //end ajax()
+
 
 //=======================
 //MAIN PROCESS
 //=======================
-
-$.ajax ({
-  url: googlePlacesQuery,
-  headers: {
-    "Access-Control-Allow-Origin": true
-  },
-  method: 'get'
-}).done(function (response){
-    console.log(response.result.photos[0].html_attributions);
-    currentPlaceName = response.result.name;
-    currentPlaceImage = response.result.photos[0].html_attributions.slice(15);
-    currentPlaceReview = response.result.reviews[0].text;
-    currentPlaceAuthor = response.result.reviews[0].author_name;
-    currentPlaceHours = response.result.opening_hours.weekday_text;
-    newCard();
-});
