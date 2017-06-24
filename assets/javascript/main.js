@@ -5,15 +5,19 @@
 
 var map;
 var infoWindow;
+var database = firebase.database();
 
 var currentPlaceId = "ChIJs2kmHut4bIcRkQyaPSHmobk";
-var currentPlaceImage;
-var currentPlaceName;
-var currentPlaceReview;
-var currentPlaceAuthor;
-var currentPlaceHours;
+var currentPlaceImage = "fred";
+var currentPlaceName = "Bob's Bar";
+var currentPlaceReview = "Bob's is awesome";
+var currentPlaceRating = "3.8";
+var currentPlaceAuthor = "Don";
+var currentPlaceHours = "11:00 - 2:00am";
 var nextCard = 0;
-
+var stopNumber =1;
+var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
+var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
 
 //=======================
 //FUNCTIONS
@@ -103,6 +107,8 @@ function createMarker(place) {
     //Click on the addToCrawl button
     $("#addToCrawl").on("click", function(){
       ajaxCall();
+      dataPush();
+      newCard(); 
     });
   });
 }; //end createMarker()
@@ -113,11 +119,12 @@ function newCard() {
   nextCard ++;
   console.log(nextCard);
   //Create a new card div
-  $("#results").append('<button class="accordion btn btn-primary btn-block">'+currentPlaceName +'  <span class="caret"></span></button><div style="display: none" class="panel" id="card'+[nextCard]+'"</div>');
-  $("#card"+[nextCard]).append(currentPlaceImage);
+  database.ref().on("child_added", function(snapshot) {
+  $("#results").append('<button class="accordion btn btn-primary btn-block">'+ snapshot.val().name +'  <span class="caret"></span></button><div style="display: none" class="panel" id="card'+[nextCard]+'"</div>');
+  $("#card"+[nextCard]).append(snapshot.val().photo);
   // $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
-  $("#card"+[nextCard]).append('<p>&quot;' + currentPlaceReview + '&quot;</p><p class="author"> -' +currentPlaceAuthor+ "</p>");
-  $("#card"+[nextCard]).append('<h5>Hours of Operation</h5><p>' + currentPlaceHours + '</p');
+  $("#card"+[nextCard]).append('<p>&quot;' + snapshot.val().review + '&quot;</p><p class="author"> -' +snapshot.val().author+ "</p>");
+  $("#card"+[nextCard]).append('<h5>Rating: ' + snapshot.val().rating + ' out of 5.</h5');
 
   var acc = document.getElementsByClassName("accordion");
   var i;
@@ -131,15 +138,17 @@ function newCard() {
           } else {
               panel.style.display = "block";
           }
-      }
+      };
   }
-}// newCard();
+});  
+  }
+
+  // newCard();
 
 //Function to call ajax
 function ajaxCall(){
 
-  var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
-  var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
+ 
   console.log(googlePlacesQuery);
 
   $.ajax ({
@@ -155,9 +164,28 @@ function ajaxCall(){
       currentPlaceReview = response.result.reviews[0].text;
       currentPlaceAuthor = response.result.reviews[0].author_name;
       currentPlaceHours = response.result.opening_hours.weekday_text;
-      newCard();
+      // newCard();
   });
 } //end ajax()
+
+//Add card to database
+function dataPush() {
+  console.log("it tried to push");
+  console.log(currentPlaceName);
+  database.ref().push({
+    name: currentPlaceName,
+    placeId: currentPlaceId,
+    photo: currentPlaceImage,
+    review: currentPlaceReview,
+    author: currentPlaceAuthor,
+    rating: currentPlaceRating,    
+    hoursOfOperation: currentPlaceHours,
+    nextDistance: 0,
+    stopNumber: stopNumber,
+    dateAdded: firebase.database.ServerValue.TIMESTAMP  
+  });
+}
+
 
 
 //=======================
