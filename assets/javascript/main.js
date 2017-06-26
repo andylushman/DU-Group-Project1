@@ -6,7 +6,7 @@
 var map;
 var infoWindow;
 
-var currentPlaceId = "ChIJs2kmHut4bIcRkQyaPSHmobk";
+var currentPlaceId;
 var currentPlaceImage;
 var currentPlaceName;
 var currentPlaceReview;
@@ -96,13 +96,13 @@ function createMarker(place) {
   });
   //When a marker is clicked, run this function
   google.maps.event.addListener(marker, 'click', function() {
-    infoWindow.setContent("<h4>" + place.name + "</h4><button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
     currentPlaceId = place.place_id;
+    ajaxCall();
+    infoWindow.setContent("<h4>" + place.name + "</h4><button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
     infoWindow.open(map, this);
-    console.log(currentPlaceId);
     //Click on the addToCrawl button
     $("#addToCrawl").on("click", function(){
-      ajaxCall();
+      newCard();
     });
   });
 }; //end createMarker()
@@ -155,7 +155,6 @@ function ajaxCall(){
       currentPlaceReview = response.result.reviews[0].text;
       currentPlaceAuthor = response.result.reviews[0].author_name;
       currentPlaceHours = response.result.opening_hours.weekday_text;
-      newCard();
   });
 } //end ajax()
 
