@@ -97,8 +97,10 @@ function createMarker(place) {
   //When a marker is clicked, run this function
   google.maps.event.addListener(marker, 'click', function() {
     currentPlaceId = place.place_id;
-    ajaxCall();
-    infoWindow.setContent("<h4>" + place.name + "</h4><button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
+    $.when(ajaxCall()).done(function(a1){
+      console.log(currentPlaceName);
+    });
+    infoWindow.setContent("<h4>" + currentPlaceName + "</h4><button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
     infoWindow.open(map, this);
     //Click on the addToCrawl button
     $("#addToCrawl").on("click", function(){
@@ -142,7 +144,7 @@ function ajaxCall(){
   var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
   console.log(googlePlacesQuery);
 
-  $.ajax ({
+  return $.ajax ({
     url: googlePlacesQuery,
     headers: {
       "Access-Control-Allow-Origin": true
@@ -155,6 +157,7 @@ function ajaxCall(){
       currentPlaceReview = response.result.reviews[0].text;
       currentPlaceAuthor = response.result.reviews[0].author_name;
       currentPlaceHours = response.result.opening_hours.weekday_text;
+      console.log("pass1");
   });
 } //end ajax()
 
