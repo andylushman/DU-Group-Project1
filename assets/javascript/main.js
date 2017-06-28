@@ -109,7 +109,7 @@ function createMarker(place) {
     ajaxCall(popUp, that);
 
     function popUp(that){
-      infoWindow.setContent("<h4>" + currentPlaceName + "</h4><button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
+      infoWindow.setContent("<h4>" + currentPlaceName + "</h4><p>&quot;" + currentPlaceReview + "&quot;</p><p class='author'> -" +currentPlaceAuthor+ "</p><h5>Hours of Operation</h5><p>" + currentPlaceHours + "</p><button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
       infoWindow.open(map, that);
       //Click on the addToCrawl button
       $("#addToCrawl").on("click", function(){
@@ -129,7 +129,7 @@ function newCard() {
   $("#card"+[nextCard]).append(currentPlaceImage);
   // $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
   $("#card"+[nextCard]).append('<p>&quot;' + currentPlaceReview + '&quot;</p><p class="author"> -' +currentPlaceAuthor+ "</p>");
-  $("#card"+[nextCard]).append('<h5>Hours of Operation</h5><p>' + currentPlaceHours + '</p');
+  $("#card"+[nextCard]).append('<h5>Hours of Operation</h5><p>' + currentPlaceHours + '</p>');
 
   var acc = document.getElementsByClassName("accordion");
   var i;
