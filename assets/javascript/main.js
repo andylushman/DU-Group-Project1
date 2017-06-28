@@ -13,6 +13,7 @@ var currentPlaceReview;
 var currentPlaceAuthor;
 var currentPlaceHours;
 var nextCard = 0;
+var latLong;
 
 
 //=======================
@@ -35,6 +36,9 @@ function initMap() {
         infoWindow.setContent('Location found.');
         infoWindow.open(map);
         map.setCenter(pos);
+        console.log(pos);
+        latLong = pos;
+        search();
       }, function() {
         handleLocationError(true, infoWindow, map.getCenter());
       });
@@ -56,19 +60,23 @@ function initMap() {
   var denver = {lat:39.7392,lng:-104.9903};
   //Map that is loaded on page
   map = new google.maps.Map(document.getElementById("map"), {
-    center: denver,
+    center: currentLocation(),
     zoom: 14
   });
   //
   infoWindow = new google.maps.InfoWindow();
   var service = new google.maps.places.PlacesService(map);
   //Search based on bar
-  service.nearbySearch({
-    location: denver,
-    radius: 10000,
-    type: ["bar"]
-  }, callback); //Calls callback function
+  function search(){
+    service.nearbySearch({
+      location: latLong,
+      radius: 1000,
+      type: ["bar"]
+    }, callback); //Calls callback function
+  }
 }; // End initMap()
+
+
 
 //Callback function
 function callback(results, status) {
