@@ -150,7 +150,7 @@ function ajaxCall(){
   var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
   console.log(googlePlacesQuery);
 
-  return $.ajax ({
+  $.ajax ({
     url: googlePlacesQuery,
     headers: {
       "Access-Control-Allow-Origin": true
