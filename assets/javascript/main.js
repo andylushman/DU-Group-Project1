@@ -104,14 +104,18 @@ function createMarker(place) {
   });
   //When a marker is clicked, run this function
   google.maps.event.addListener(marker, 'click', function() {
+    var that = this;
     currentPlaceId = place.place_id;
-    ajaxCall();
-    infoWindow.setContent("<h4>" + currentPlaceName + "</h4><button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
-    infoWindow.open(map, this);
-    //Click on the addToCrawl button
-    $("#addToCrawl").on("click", function(){
-      newCard();
-    });
+    ajaxCall(popUp, that);
+
+    function popUp(that){
+      infoWindow.setContent("<h4>" + currentPlaceName + "</h4><button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
+      infoWindow.open(map, that);
+      //Click on the addToCrawl button
+      $("#addToCrawl").on("click", function(){
+        newCard();
+      });
+    }
   });
 }; //end createMarker()
 
@@ -144,7 +148,7 @@ function newCard() {
 }// newCard();
 
 //Function to call ajax
-function ajaxCall(){
+function ajaxCall(genericName, that){
 
   var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
   var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
@@ -163,8 +167,8 @@ function ajaxCall(){
       currentPlaceReview = response.result.reviews[0].text;
       currentPlaceAuthor = response.result.reviews[0].author_name;
       currentPlaceHours = response.result.opening_hours.weekday_text;
-      console.log("pass1");
       console.log(currentPlaceName);
+      genericName(that);
   });
 } //end ajax()
 
