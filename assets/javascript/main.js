@@ -12,8 +12,11 @@ var currentPlaceName;
 var currentPlaceReview;
 var currentPlaceAuthor;
 var currentPlaceHours;
+var currentPlaceRating;
 var nextCard = 0;
-
+var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
+var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
+ 
 
 //=======================
 //FUNCTIONS
@@ -96,13 +99,17 @@ function createMarker(place) {
   });
   //When a marker is clicked, run this function
   google.maps.event.addListener(marker, 'click', function() {
-    infoWindow.setContent("<h4>" + place.name + "</h4><<button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
     currentPlaceId = place.place_id;
-    infoWindow.open(map, this);
     console.log(currentPlaceId);
+    googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
+    console.log("new query is " + googlePlacesQuery);
+    ajaxCall();
+    infoWindow.setContent("<h4>" + currentPlaceName + ": " + currentPlaceRating + "</h4><button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
+    
+    infoWindow.open(map, this);
     //Click on the addToCrawl button
     $("#addToCrawl").on("click", function(){
-      ajaxCall();
+    newCard();
     });
   });
 }; //end createMarker()
@@ -111,7 +118,7 @@ function createMarker(place) {
 function newCard() {
   //To help with creating a new id for each card
   nextCard ++;
-  console.log(nextCard);
+  // console.log(nextCard);
   //Create a new card div
   $("#results").append('<button class="accordion btn btn-primary btn-block">'+currentPlaceName +'  <span class="caret"></span></button><div style="display: none" class="panel" id="card'+[nextCard]+'"</div>');
   $("#card"+[nextCard]).append(currentPlaceImage);
@@ -138,9 +145,7 @@ function newCard() {
 //Function to call ajax
 function ajaxCall(){
 
-  var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
-  var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
-  console.log(googlePlacesQuery);
+console.log(googlePlacesQuery);
 
   $.ajax ({
     url: googlePlacesQuery,
@@ -155,7 +160,7 @@ function ajaxCall(){
       currentPlaceReview = response.result.reviews[0].text;
       currentPlaceAuthor = response.result.reviews[0].author_name;
       currentPlaceHours = response.result.opening_hours.weekday_text;
-      newCard();
+      // newCard();
   });
 } //end ajax()
 
