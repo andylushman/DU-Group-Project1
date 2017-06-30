@@ -7,12 +7,9 @@ var map;
 var infoWindow;
 var database = firebase.database();
 
-<<<<<<< HEAD
 // var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
 // var googlePlacesQuery = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
 
-=======
->>>>>>> 67c11d2bd6b3959ec2cb6d25cfee661d82a9fd67
 var currentPlaceId;
 var currentPlaceImage;
 var currentPlaceName;
