@@ -25,6 +25,7 @@ function initMap() {
   //Denver coordinates
   var currentLocation = () => {
     // Try HTML5 geolocation.
+autoCompleteLocation();
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
@@ -74,6 +75,7 @@ function initMap() {
       type: ["bar"]
     }, callback); //Calls callback function
   }
+
 }; // End initMap()
 
 
@@ -147,6 +149,16 @@ function newCard() {
   }
 }// newCard();
 
+//function to prepopulate text from startlocation input
+function autoCompleteLocation () {
+
+var input = document.getElementById('startLocation');
+var autocomplete = new google.maps.places.Autocomplete(input);
+google.maps.event.addDomListener(window, 'load', autoCompleteLocation);
+console.log("testing");
+}//autoCompleteLocation();
+
+
 //Function to call ajax
 function ajaxCall(genericName, that){
 
@@ -169,6 +181,7 @@ function ajaxCall(genericName, that){
       currentPlaceHours = response.result.opening_hours.weekday_text;
       console.log(currentPlaceName);
       genericName(that);
+
   });
 } //end ajax()
 
