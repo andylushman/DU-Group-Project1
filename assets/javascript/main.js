@@ -7,6 +7,9 @@ var map;
 var infoWindow;
 var database = firebase.database();
 
+// var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
+// var googlePlacesQuery = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
+
 var currentPlaceId;
 var currentPlaceImage;
 var currentPlaceName;
@@ -107,6 +110,14 @@ function createMarker(place) {
   google.maps.event.addListener(marker, 'click', function() {
     var that = this;
     currentPlaceId = place.place_id;
+    infoWindow.open(map, this);
+    console.log(currentPlaceId);
+    //Click on the addToCrawl button
+    $("#addToCrawl").on("click", function(){
+       dataPush();
+      newCard(); 
+    });
+
     ajaxCall(popUp, that);
 
     function popUp(that){
@@ -121,6 +132,17 @@ function createMarker(place) {
   });
 }; //end createMarker()
 
+// function cardLoad() {
+//   database.ref().on("child_added", function(snapshot) {
+
+//   $("#results").append('<div><button class="accordion btn btn-primary btn-block">'+ snapshot.val().name +'  <span class="caret"></span></button><div style="display: none" class="panel" id="card'+[nextCard]+'"</div>');
+//   // $("#card"+[nextCard]).append(snapshot.val().photo);
+//   // // $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
+//   // $("#card"+[nextCard]).append('<p>&quot;' + snapshot.val().review + '&quot;</p><p class="author"> -' +snapshot.val().author+ "</p>");
+//   // $("#card"+[nextCard]).append('<h5>Rating: ' + snapshot.val().rating + ' out of 5.</h5></div>');
+//   // $("#card"+[nextCard]).append('<p>&quot;' + currentPlaceReview + '&quot;</p><p class="author"> -' +currentPlaceAuthor+ "</p>");
+//   $("#card"+[nextCard]).append('<h5>Hours of Operation</h5><p>' + currentPlaceHours[0] + '</p>');
+// })
 //Function to add new card
 function newCard() {
   //To help with creating a new id for each card
@@ -132,6 +154,11 @@ function newCard() {
   $("#results").append('<div><button class="accordion btn btn-primary btn-block">'+ snapshot.val().name +'  <span class="caret"></span></button><div style="display: none" class="panel" id="card'+[snapshot.key]+'"</div>');
   $("#card"+[snapshot.key]).append(snapshot.val().photo);
   // $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
+  $("#card"+[snapshot.key]).append('<p>&quot;' + snapshot.val().review + '&quot;</p><p class="author"> -' +snapshot.val().author+ "</p>");
+  $("#card"+[snapshot.key]).append('<h5>Rating: ' + snapshot.val().rating + ' out of 5.</h5></div>');
+  $("#card"+[snapshot.key]).append('<p>&quot;' + currentPlaceReview + '&quot;</p><p class="author"> -' +currentPlaceAuthor+ "</p>");
+  $("#card"+[snapshot.key]).append('<h5>Hours of Operation</h5><p>' + snapshot.val().hoursOfOperation + '</p>');
+
   $("#card"+[snapshot.key]).append('<p>&quot;' + currentPlaceReview + '&quot;</p><p class="author"> -' +currentPlaceAuthor+ "</p>");
   $("#card"+[snapshot.key]).append('<h5>Hours of Operation</h5><p>' + currentPlaceHours + '</p>');
 
@@ -158,6 +185,7 @@ function newCard() {
 //Function to call ajax
 function ajaxCall(genericName, that){
 
+ 
   var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
   var googlePlacesQuery = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
   console.log(googlePlacesQuery);
@@ -175,6 +203,7 @@ function ajaxCall(genericName, that){
       currentPlaceReview = response.result.reviews[0].text;
       currentPlaceAuthor = response.result.reviews[0].author_name;
       currentPlaceHours = response.result.opening_hours.weekday_text;
+      // newCard();
       console.log(currentPlaceName);
       genericName(that);
   });
@@ -203,3 +232,4 @@ function dataPush() {
 //=======================
 //MAIN PROCESS
 //=======================
+// cardLoad();
