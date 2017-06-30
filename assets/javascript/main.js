@@ -34,7 +34,7 @@ autoCompleteLocation();
         };
 
         infoWindow.setPosition(pos);
-        infoWindow.setContent('Location found.');
+        infoWindow.setContent("<img src='./assets/images/starter-icon.png' alt='Smiley face' height='30' width='40px'>");
         infoWindow.open(map);
         map.setCenter(pos);
         console.log(pos);
