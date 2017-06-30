@@ -114,6 +114,7 @@ function createMarker(place) {
       infoWindow.open(map, that);
       //Click on the addToCrawl button
       $("#addToCrawl").on("click", function(){
+        dataPush();
         newCard();
       });
     }
@@ -128,11 +129,11 @@ function newCard() {
   //Create a new card div
   database.ref().on("child_added", function(snapshot) {
 
-  $("#results").append('<div><button class="accordion btn btn-primary btn-block">'+ snapshot.val().name +'  <span class="caret"></span></button><div style="display: none" class="panel" id="card'+[nextCard]+'"</div>');
-  $("#card"+[nextCard]).append(snapshot.val().photo);
+  $("#results").append('<div><button class="accordion btn btn-primary btn-block">'+ snapshot.val().name +'  <span class="caret"></span></button><div style="display: none" class="panel" id="card'+[snapshot.key]+'"</div>');
+  $("#card"+[snapshot.key]).append(snapshot.val().photo);
   // $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
-  $("#card"+[nextCard]).append('<p>&quot;' + currentPlaceReview + '&quot;</p><p class="author"> -' +currentPlaceAuthor+ "</p>");
-  $("#card"+[nextCard]).append('<h5>Hours of Operation</h5><p>' + currentPlaceHours + '</p>');
+  $("#card"+[snapshot.key]).append('<p>&quot;' + currentPlaceReview + '&quot;</p><p class="author"> -' +currentPlaceAuthor+ "</p>");
+  $("#card"+[snapshot.key]).append('<h5>Hours of Operation</h5><p>' + currentPlaceHours + '</p>');
 
   var acc = document.getElementsByClassName("accordion");
   var i;
