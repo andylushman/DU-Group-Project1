@@ -7,9 +7,12 @@ var map;
 var infoWindow;
 var database = firebase.database();
 
+<<<<<<< HEAD
 // var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
 // var googlePlacesQuery = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
 
+=======
+>>>>>>> 67c11d2bd6b3959ec2cb6d25cfee661d82a9fd67
 var currentPlaceId;
 var currentPlaceImage;
 var currentPlaceName;
@@ -146,7 +149,7 @@ function createMarker(place) {
 //Function to add new card
 function newCard() {
   //To help with creating a new id for each card
-  
+
   console.log(nextCard);
   //Create a new card div
   database.ref().on("child_added", function(snapshot) {
@@ -158,6 +161,9 @@ function newCard() {
   $("#card"+[snapshot.key]).append('<h5>Rating: ' + snapshot.val().rating + ' out of 5.</h5></div>');
   $("#card"+[snapshot.key]).append('<p>&quot;' + currentPlaceReview + '&quot;</p><p class="author"> -' +currentPlaceAuthor+ "</p>");
   $("#card"+[snapshot.key]).append('<h5>Hours of Operation</h5><p>' + snapshot.val().hoursOfOperation + '</p>');
+
+  $("#card"+[snapshot.key]).append('<p>&quot;' + currentPlaceReview + '&quot;</p><p class="author"> -' +currentPlaceAuthor+ "</p>");
+  $("#card"+[snapshot.key]).append('<h5>Hours of Operation</h5><p>' + currentPlaceHours + '</p>');
 
   var acc = document.getElementsByClassName("accordion");
   var i;
@@ -173,7 +179,7 @@ function newCard() {
           }
       };
   }
-});  
+});
   nextCard ++;
   }
 
@@ -216,11 +222,11 @@ function dataPush() {
     photo: currentPlaceImage,
     review: currentPlaceReview,
     author: currentPlaceAuthor,
-    rating: currentPlaceRating,    
+    rating: currentPlaceRating,
     hoursOfOperation: currentPlaceHours,
     nextDistance: 0,
     stopNumber: stopNumber,
-    dateAdded: firebase.database.ServerValue.TIMESTAMP  
+    dateAdded: firebase.database.ServerValue.TIMESTAMP
   });
 }
 
