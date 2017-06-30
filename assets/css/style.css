@@ -1,3 +1,21 @@
+/***********************  
+    Fonts
+***********************/
+
+.h1 {
+  font-family: "Luckiest Guy", cursive;
+
+}
+
+h4{
+  font-family: "Luckiest Guy", cursive;
+}
+h5 {
+  font-family: "Luckiest Guy", cursive;
+}
+p {
+  font-family: "Fresca", sans-serif;
+}
 /***********************
     Page Layout
 ***********************/
