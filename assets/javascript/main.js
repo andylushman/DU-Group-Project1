@@ -33,7 +33,7 @@ function initMap() {
         };
 
         infoWindow.setPosition(pos);
-        infoWindow.setContent('Location found.');
+        infoWindow.setContent("<img src='./assets/images/starter-icon.png' alt='Smiley face' height='42' width='42'>");
         infoWindow.open(map);
         map.setCenter(pos);
         console.log(pos);
