@@ -70,7 +70,7 @@ function initMap() {
   function search(){
     service.nearbySearch({
       location: latLong,
-      radius: 1000,
+      radius: 2000,
       type: ["bar"]
     }, callback); //Calls callback function
   }
