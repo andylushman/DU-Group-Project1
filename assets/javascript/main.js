@@ -6,13 +6,14 @@
 var map;
 var infoWindow;
 
-var currentPlaceId = "ChIJs2kmHut4bIcRkQyaPSHmobk";
+var currentPlaceId;
 var currentPlaceImage;
 var currentPlaceName;
 var currentPlaceReview;
 var currentPlaceAuthor;
 var currentPlaceHours;
 var nextCard = 0;
+var latLong;
 
 
 //=======================
@@ -35,6 +36,9 @@ function initMap() {
         infoWindow.setContent('Location found.');
         infoWindow.open(map);
         map.setCenter(pos);
+        console.log(pos);
+        latLong = pos;
+        search();
       }, function() {
         handleLocationError(true, infoWindow, map.getCenter());
       });
@@ -56,19 +60,23 @@ function initMap() {
   var denver = {lat:39.7392,lng:-104.9903};
   //Map that is loaded on page
   map = new google.maps.Map(document.getElementById("map"), {
-    center: denver,
+    center: currentLocation(),
     zoom: 14
   });
   //
   infoWindow = new google.maps.InfoWindow();
   var service = new google.maps.places.PlacesService(map);
   //Search based on bar
-  service.nearbySearch({
-    location: denver,
-    radius: 10000,
-    type: ["bar"]
-  }, callback); //Calls callback function
+  function search(){
+    service.nearbySearch({
+      location: latLong,
+      radius: 2000,
+      type: ["bar"]
+    }, callback); //Calls callback function
+  }
 }; // End initMap()
+
+
 
 //Callback function
 function callback(results, status) {
@@ -96,14 +104,18 @@ function createMarker(place) {
   });
   //When a marker is clicked, run this function
   google.maps.event.addListener(marker, 'click', function() {
-    infoWindow.setContent("<h4>" + place.name + "</h4><<button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
+    var that = this;
     currentPlaceId = place.place_id;
-    infoWindow.open(map, this);
-    console.log(currentPlaceId);
-    //Click on the addToCrawl button
-    $("#addToCrawl").on("click", function(){
-      ajaxCall();
-    });
+    ajaxCall(popUp, that);
+
+    function popUp(that){
+      infoWindow.setContent("<h4>" + currentPlaceName + "</h4><p>&quot;" + currentPlaceReview + "&quot;</p><p class='author'> -" +currentPlaceAuthor+ "</p><h5>Hours of Operation</h5><p>" + currentPlaceHours + "</p><button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
+      infoWindow.open(map, that);
+      //Click on the addToCrawl button
+      $("#addToCrawl").on("click", function(){
+        newCard();
+      });
+    }
   });
 }; //end createMarker()
 
@@ -117,7 +129,7 @@ function newCard() {
   $("#card"+[nextCard]).append(currentPlaceImage);
   // $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
   $("#card"+[nextCard]).append('<p>&quot;' + currentPlaceReview + '&quot;</p><p class="author"> -' +currentPlaceAuthor+ "</p>");
-  $("#card"+[nextCard]).append('<h5>Hours of Operation</h5><p>' + currentPlaceHours + '</p');
+  $("#card"+[nextCard]).append('<h5>Hours of Operation</h5><p>' + currentPlaceHours + '</p>');
 
   var acc = document.getElementsByClassName("accordion");
   var i;
@@ -136,7 +148,7 @@ function newCard() {
 }// newCard();
 
 //Function to call ajax
-function ajaxCall(){
+function ajaxCall(genericName, that){
 
   var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
   var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
@@ -155,7 +167,8 @@ function ajaxCall(){
       currentPlaceReview = response.result.reviews[0].text;
       currentPlaceAuthor = response.result.reviews[0].author_name;
       currentPlaceHours = response.result.opening_hours.weekday_text;
-      newCard();
+      console.log(currentPlaceName);
+      genericName(that);
   });
 } //end ajax()
 
