@@ -161,12 +161,12 @@ function newCard() {
   database.ref().on("child_added", function(snapshot) {
 
   $("#results").append('<div><button class="accordion btn btn-primary btn-block">'+ snapshot.val().name +'  <span class="caret"></span></button><div style="display: none" class="panel" id="card'+[snapshot.key]+'"</div>');
-  // $("#card"+[nextCard]).append(snapshot.val().photo);
-  // // $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
-  // $("#card"+[nextCard]).append('<p>&quot;' + snapshot.val().review + '&quot;</p><p class="author"> -' +snapshot.val().author+ "</p>");
-  // $("#card"+[nextCard]).append('<h5>Rating: ' + snapshot.val().rating + ' out of 5.</h5></div>');
-  // $("#card"+[nextCard]).append('<p>&quot;' + currentPlaceReview + '&quot;</p><p class="author"> -' +currentPlaceAuthor+ "</p>");
-  $("#card"+[snapshot.key]).append('<h5>Hours of Operation</h5><p>' + snapshot.val().name + '</p>');
+  $("#card"+[snapshot.key]).append(snapshot.val().photo);
+  // $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
+  $("#card"+[snapshot.key]).append('<p>&quot;' + snapshot.val().review + '&quot;</p><p class="author"> -' +snapshot.val().author+ "</p>");
+  $("#card"+[snapshot.key]).append('<h5>Rating: ' + snapshot.val().rating + ' out of 5.</h5></div>');
+  $("#card"+[snapshot.key]).append('<p>&quot;' + currentPlaceReview + '&quot;</p><p class="author"> -' +currentPlaceAuthor+ "</p>");
+  $("#card"+[snapshot.key]).append('<h5>Hours of Operation</h5><p>' + snapshot.val().hoursOfOperation + '</p>');
 
   var acc = document.getElementsByClassName("accordion");
   var i;
