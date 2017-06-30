@@ -7,15 +7,6 @@ var map;
 var infoWindow;
 var database = firebase.database();
 
-var currentPlaceId = "ChIJs2kmHut4bIcRkQyaPSHmobk";
-var currentPlaceImage = "fred";
-var currentPlaceName = "Bob's Bar";
-var currentPlaceReview = "Bob's is awesome";
-var currentPlaceRating = "3.8";
-var currentPlaceAuthor = "Don";
-var currentPlaceHours = "11:00 - 2:00am";
-var nextCard = 1;
-var stopNumber =1;
 // var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
 // var googlePlacesQuery = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
 
