@@ -51,3 +51,16 @@ p {
   width: 100%
   border: 1px solid #000;
 }
+
+.panel {
+  padding: 5px;
+}
+
+.hours {
+  margin-left: 5px;
+  line-height: 8px;
+}
+.author {
+  text-align: right;
+  font-style: italic;
+}
