@@ -21,25 +21,48 @@ p {
 ***********************/
 
 .form {
-  background-color: blue;
-  border: 1px solid #000;
+  background-color: #8c0ee6;
   padding: 5px;
 }
 
 .header {
-  background-color: yellow;
-  border: 1px solid #000;
+  background-color: #ffa339;
+  color: #49027c;
 }
 
+.btn-success {
+  background-color: #82f537;
+  color: #8c0ee6;
+}
+.map {
+  margin: 0;
+  padding: 0;
+}
+
+h4 {
+  color: #8c0ee6;
+}
+
+.accordion {
+  background-color: #8c0ee6;
+  font-family: 'Fresca', sans-serif;
+  font-size: 18px;
+}
+
+.panel {
+  text-align: center;
+}
 .results {
-  background-color: lightgreen;
+  background-color: #82f537;
   border: 1px solid #000;
   height: 300px;
+  overflow: auto;
 }
 
 .footer {
   padding: 10px;
-  background-color: blue
+  background-color: #8c0ee6;
+  color: #fff;
 }
 
 /***********************
@@ -47,9 +70,19 @@ p {
 ***********************/
 
 #map {
+  height: 300px;
+  width: 100%;
   height: 100%;
   width: 100%
   border: 1px solid #000;
+}
+input[type="text"] {
+  border-radius: 5px;
+  padding-left: 10px;
+  font-family: 'Fresca', sans-serif;
+}
+.dropdown-menu {
+  font-family: 'Fresca', sans-serif;
 }
 
 .panel {
@@ -63,4 +96,20 @@ p {
 .author {
   text-align: right;
   font-style: italic;
+}
+
+li {
+  padding-left: 10px;
+  font-size: 16px;
+}
+
+.open>.dropdown-menu {
+    display: block;
+    width: 106px;
+    margin-left: 175px;
+    background-color: #fff;
+}
+
+.dropdown-menu {
+  min-width: 0;
 }
