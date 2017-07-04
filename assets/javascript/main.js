@@ -16,7 +16,9 @@ var currentPlaceName;
 var currentPlaceReview;
 var currentPlaceAuthor;
 var currentPlaceHours;
-var nextCard = 0;
+var currentPlaceReviewTime;
+
+// var nextCard = 0;
 var latLong;
 
 
@@ -57,7 +59,7 @@ function initMap() {
     infoWindow.setPosition(pos);
     infoWindow.setContent(browserHasGeolocation ?
                           'Error: The Geolocation service failed.' :
-                          'Error: Your browser doesn\'t support geolocation.');
+                          "Error: Your browser doesn't support geolocation.");
     infoWindow.open(map);
   }; //end handleLocationError()
 
@@ -110,58 +112,68 @@ function createMarker(place) {
   google.maps.event.addListener(marker, 'click', function() {
     var that = this;
     currentPlaceId = place.place_id;
+    currentPlaceLat = latLong[0];
+    currentPlaceLng = latLong[1];
     infoWindow.open(map, this);
-    console.log(currentPlaceId);
+    console.log("Don", currentPlaceLat, currentPlaceLng);
     //Click on the addToCrawl button
     $("#addToCrawl").on("click", function(){
        dataPush();
-      newCard(); 
+        newCard(); 
     });
 
     ajaxCall(popUp, that);
 
     function popUp(that){
-      infoWindow.setContent("<h4>" + currentPlaceName + "</h4><p>&quot;" + currentPlaceReview + "&quot;</p><p class='author'> -" +currentPlaceAuthor+ "</p><h5>Hours of Operation</h5><p>" + currentPlaceHours + "</p><button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
+      infoWindow.setContent("<h4>" + currentPlaceName + "</h4><p>&quot;" + currentPlaceReview + "&quot;</p><p class='author'> -" +currentPlaceAuthor+ ', ' + currentPlaceReviewTime + '</p><h5>Hours of Operation</h5>'
+        + '<p class="hours">' + currentPlaceHours[0] + '</p>'
+        + '<p class="hours">' + currentPlaceHours[1] + '</p>'
+        + '<p class="hours">' + currentPlaceHours[2] + '</p>'
+        + '<p class="hours">' + currentPlaceHours[3] + '</p>'
+        + '<p class="hours">' + currentPlaceHours[4] + '</p>'
+        + '<p class="hours">' + currentPlaceHours[5] + '</p>'
+        + '<p class="hours">' + currentPlaceHours[6] 
+        + "</p><button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>")
       infoWindow.open(map, that);
       //Click on the addToCrawl button
       $("#addToCrawl").on("click", function(){
         dataPush();
-        newCard();
+        loadCards();
+        infoWindow.close(map, that);
+
       });
     }
   });
 }; //end createMarker()
 
-// function cardLoad() {
-//   database.ref().on("child_added", function(snapshot) {
-
-//   $("#results").append('<div><button class="accordion btn btn-primary btn-block">'+ snapshot.val().name +'  <span class="caret"></span></button><div style="display: none" class="panel" id="card'+[nextCard]+'"</div>');
-//   // $("#card"+[nextCard]).append(snapshot.val().photo);
-//   // // $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
-//   // $("#card"+[nextCard]).append('<p>&quot;' + snapshot.val().review + '&quot;</p><p class="author"> -' +snapshot.val().author+ "</p>");
-//   // $("#card"+[nextCard]).append('<h5>Rating: ' + snapshot.val().rating + ' out of 5.</h5></div>');
-//   // $("#card"+[nextCard]).append('<p>&quot;' + currentPlaceReview + '&quot;</p><p class="author"> -' +currentPlaceAuthor+ "</p>");
-//   $("#card"+[nextCard]).append('<h5>Hours of Operation</h5><p>' + currentPlaceHours[0] + '</p>');
-// })
-//Function to add new card
-function newCard() {
+//Function to load the cards from the database
+function loadCards() {
   //To help with creating a new id for each card
+  $("#results").empty();
+  $("#results").append("<h4>Here's Your Crawl</h4>");
 
-  console.log(nextCard);
   //Create a new card div
   database.ref().on("child_added", function(snapshot) {
-
   $("#results").append('<div><button class="accordion btn btn-primary btn-block">'+ snapshot.val().name +'  <span class="caret"></span></button><div style="display: none" class="panel" id="card'+[snapshot.key]+'"</div>');
-  $("#card"+[snapshot.key]).append(snapshot.val().photo);
+  // $("#card"+[snapshot.key]).append(snapshot.val().photo);
   // $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
-  $("#card"+[snapshot.key]).append('<p>&quot;' + snapshot.val().review + '&quot;</p><p class="author"> -' +snapshot.val().author+ "</p>");
-  $("#card"+[snapshot.key]).append('<h5>Rating: ' + snapshot.val().rating + ' out of 5.</h5></div>');
-  $("#card"+[snapshot.key]).append('<p>&quot;' + currentPlaceReview + '&quot;</p><p class="author"> -' +currentPlaceAuthor+ "</p>");
-  $("#card"+[snapshot.key]).append('<h5>Hours of Operation</h5><p>' + snapshot.val().hoursOfOperation + '</p>');
+  $("#card"+[snapshot.key]).append('<h5>Rating: ' + snapshot.val().rating + ' out of 5</h5></div>');
 
-  $("#card"+[snapshot.key]).append('<p>&quot;' + currentPlaceReview + '&quot;</p><p class="author"> -' +currentPlaceAuthor+ "</p>");
-  $("#card"+[snapshot.key]).append('<h5>Hours of Operation</h5><p>' + currentPlaceHours + '</p>');
-
+  // $("#card"+[snapshot.key]).append('<p>&quot;' + snapshot.val().review + '&quot;</p><p class="author"> -' +snapshot.val().author+ "</p>");
+  
+  $("#card"+[snapshot.key]).append('<h5>Hours of Operation</h5>')
+  $("#card"+[snapshot.key]).append('<p class="hours">' + snapshot.val().hoursOfOperation[0] + '</p>');
+  $("#card"+[snapshot.key]).append('<p class="hours">' + snapshot.val().hoursOfOperation[1] + '</p>');
+  $("#card"+[snapshot.key]).append('<p class="hours">' + snapshot.val().hoursOfOperation[2] + '</p>');
+  $("#card"+[snapshot.key]).append('<p class="hours">' + snapshot.val().hoursOfOperation[3] + '</p>');
+  $("#card"+[snapshot.key]).append('<p class="hours">' + snapshot.val().hoursOfOperation[4] + '</p>');
+  $("#card"+[snapshot.key]).append('<p class="hours">' + snapshot.val().hoursOfOperation[5] + '</p>');
+  $("#card"+[snapshot.key]).append('<p class="hours">' + snapshot.val().hoursOfOperation[6] + '</p>');
+  $("#card"+[snapshot.key]).append('<button class="btn btn-danger btn-sm" id="remove">Remove from Crawl</button>');
+  $("#remove").on("click", function(){
+    removeItem();
+    loadCards();
+    });
   var acc = document.getElementsByClassName("accordion");
   var i;
 
@@ -177,7 +189,7 @@ function newCard() {
       };
   }
 });
-  nextCard ++;
+  // nextCard ++;
   }
 
   // newCard();
@@ -197,14 +209,14 @@ function ajaxCall(genericName, that){
     },
     method: 'get'
   }).done(function (response){
-      console.log(response.result.photos[0].html_attributions);
       currentPlaceName = response.result.name;
-      currentPlaceImage = response.result.photos[0].html_attributions.slice(15);
       currentPlaceReview = response.result.reviews[0].text;
       currentPlaceAuthor = response.result.reviews[0].author_name;
+      currentPlaceReviewTime = response.result.reviews[0].relative_time_description;
+      currentPlaceRating = response.result.rating;
       currentPlaceHours = response.result.opening_hours.weekday_text;
       // newCard();
-      console.log(currentPlaceName);
+      console.log(response);
       genericName(that);
   });
 } //end ajax()
@@ -216,20 +228,26 @@ function dataPush() {
   database.ref().push({
     name: currentPlaceName,
     placeId: currentPlaceId,
-    photo: currentPlaceImage,
     review: currentPlaceReview,
     author: currentPlaceAuthor,
     rating: currentPlaceRating,
     hoursOfOperation: currentPlaceHours,
     nextDistance: 0,
-    stopNumber: stopNumber,
-    dateAdded: firebase.database.ServerValue.TIMESTAMP
+    dateAdded: firebase.database.ServerValue.TIMESTAMP,
+    reviewTime: currentPlaceReviewTime
   });
 }
-
+// Function to remove a card from the database
+function removeItem() {
+  // Now we can get back to that item we just pushed via .child().
+  database.ref().child(pubcrawl.getKey).remove(function(error) {
+    console.log(error ? "Uh oh!" : "Success!");
+  });
+}
 
 
 //=======================
 //MAIN PROCESS
 //=======================
-// cardLoad();
+loadCards();
+
