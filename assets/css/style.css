@@ -46,6 +46,7 @@ h4 {
 .accordion {
   background-color: #8c0ee6;
   font-family: 'Fresca', sans-serif;
+  font-size: 18px;
 }
 
 .panel {
@@ -75,6 +76,14 @@ h4 {
   width: 100%
   border: 1px solid #000;
 }
+input[type="text"] {
+  border-radius: 5px;
+  padding-left: 10px;
+  font-family: 'Fresca', sans-serif;
+}
+.dropdown-menu {
+  font-family: 'Fresca', sans-serif;
+}
 
 .panel {
   padding: 5px;
@@ -87,4 +96,20 @@ h4 {
 .author {
   text-align: right;
   font-style: italic;
+}
+
+li {
+  padding-left: 10px;
+  font-size: 16px;
+}
+
+.open>.dropdown-menu {
+    display: block;
+    width: 106px;
+    margin-left: 175px;
+    background-color: #fff;
+}
+
+.dropdown-menu {
+  min-width: 0;
 }
