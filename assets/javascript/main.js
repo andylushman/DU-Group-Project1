@@ -57,7 +57,7 @@ function initMap() {
       // Browser doesn't support Geolocation
       handleLocationError(false, infoWindow, map.getCenter());
     }
-  }//end currentLocation()
+  };//end currentLocation();
 
   //If no geolocation service, run this function
   function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -66,7 +66,7 @@ function initMap() {
                           'Error: The Geolocation service failed.' :
                           "Error: Your browser doesn't support geolocation.");
     infoWindow.open(map);
-  }; //end handleLocationError()
+  } //end handleLocationError()
 
   var denver = {lat:39.7392,lng:-104.9903};
   //Map that is loaded on page
@@ -85,7 +85,7 @@ function initMap() {
       type: ["bar"]
     }, callback); //Calls callback function
   }
-}; // End initMap()
+} // End initMap()
 
 
 
@@ -94,9 +94,9 @@ function callback(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
       createMarker(results[i]); //Puts each location in loop through the createMarker function
-    };
-  };
-}; //End callback()
+    }
+  }
+} //End callback()
 
 //Create Marker Function
 function createMarker(place) {
@@ -137,7 +137,7 @@ function createMarker(place) {
        dataPush();
         newCard(); 
     });
-
+    })
     ajaxCall(popUp, that);
 
     function popUp(that){
@@ -149,7 +149,7 @@ function createMarker(place) {
         + '<p class="hours">' + currentPlaceHours[4] + '</p>'
         + '<p class="hours">' + currentPlaceHours[5] + '</p>'
         + '<p class="hours">' + currentPlaceHours[6] 
-        + "</p><button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>")
+        + "</p><button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
       infoWindow.open(map, that);
       //Click on the addToCrawl button
       $("#addToCrawl").on("click", function(){
@@ -160,7 +160,7 @@ function createMarker(place) {
       });
     }
   });
-}; //end createMarker()
+} //end createMarker()
 
 //Function to load the cards from the database
 function loadCards() {
@@ -179,7 +179,7 @@ function loadCards() {
 
   // $("#card"+[snapshot.key]).append('<p>&quot;' + snapshot.val().review + '&quot;</p><p class="author"> -' +snapshot.val().author+ "</p>");
   
-  $("#card"+[snapshot.key]).append('<h5>Hours of Operation</h5>')
+  $("#card"+[snapshot.key]).append('<h5>Hours of Operation</h5>');
   $("#card"+[snapshot.key]).append('<p class="hours">' + snapshot.val().hoursOfOperation[0] + '</p>');
   $("#card"+[snapshot.key]).append('<p class="hours">' + snapshot.val().hoursOfOperation[1] + '</p>');
   $("#card"+[snapshot.key]).append('<p class="hours">' + snapshot.val().hoursOfOperation[2] + '</p>');

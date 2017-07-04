@@ -21,25 +21,47 @@ p {
 ***********************/
 
 .form {
-  background-color: blue;
-  border: 1px solid #000;
+  background-color: #8c0ee6;
   padding: 5px;
 }
 
 .header {
-  background-color: yellow;
-  border: 1px solid #000;
+  background-color: #ffa339;
+  color: #49027c;
 }
 
+.btn-success {
+  background-color: #82f537;
+  color: #8c0ee6;
+}
+.map {
+  margin: 0;
+  padding: 0;
+}
+
+h4 {
+  color: #8c0ee6;
+}
+
+.accordion {
+  background-color: #8c0ee6;
+  font-family: 'Fresca', sans-serif;
+}
+
+.panel {
+  text-align: center;
+}
 .results {
-  background-color: lightgreen;
+  background-color: #82f537;
   border: 1px solid #000;
   height: 300px;
+  overflow: auto;
 }
 
 .footer {
   padding: 10px;
-  background-color: blue
+  background-color: #8c0ee6;
+  color: #fff;
 }
 
 /***********************
