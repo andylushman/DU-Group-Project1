@@ -74,14 +74,22 @@ function initMap() {
   //Map that is loaded on page
   map = new google.maps.Map(document.getElementById("map"), {
     center: currentLocation(),
-    zoom: 14
+    zoom: zoomLevel
   });
   //
-  var youAreHereImage = "<img src='./assets/images/starter-icon.png' alt='Smiley face' height='30' width='40px'>"
-   infoWindow = new google.maps.InfoWindow({
-    content: youAreHereImage
-   });
-    service = new google.maps.places.PlacesService(map);
+  infoWindow = new google.maps.InfoWindow();
+  var service = new google.maps.places.PlacesService(map);
+  //Search based on bar
+  function search(){
+    location: latLong,
+    radius: radiusDistance,
+    type: ["bar"]
+  }, callback); // Calls ballback function;
+  // var youAreHereImage = "<img src='./assets/images/starter-icon.png' alt='Smiley face' height='30' width='40px'>"
+  //  infoWindow = new google.maps.InfoWindow({
+  //   content: youAreHereImage
+  //  });
+  //   service = new google.maps.places.PlacesService(map);
 }; // End initMap()
 
 
