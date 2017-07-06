@@ -6,7 +6,8 @@
 var map;
 var infoWindow;
 var database = firebase.database();
-
+var radiusDistance = 2000;
+var zoomLevel = 14;
 // var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
 // var googlePlacesQuery = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
 
@@ -20,7 +21,7 @@ var currentPlaceRating;
 var nextCard = 0;
 var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
 var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
- 
+var that;
 var currentPlaceReviewTime;
 
 // var nextCard = 0;
@@ -72,7 +73,7 @@ function initMap() {
   //Map that is loaded on page
   map = new google.maps.Map(document.getElementById("map"), {
     center: currentLocation(),
-    zoom: 14
+    zoom: zoomLevel
   });
   //
   infoWindow = new google.maps.InfoWindow();
@@ -81,7 +82,7 @@ function initMap() {
   function search(){
     service.nearbySearch({
       location: latLong,
-      radius: 2000,
+      radius: radiusDistance,
       type: ["bar"]
     }, callback); //Calls callback function
   }
@@ -121,23 +122,17 @@ function createMarker(place) {
     console.log("new query is " + googlePlacesQuery);
     ajaxCall();
     infoWindow.setContent("<h4>" + currentPlaceName + ": " + currentPlaceRating + "</h4><button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
-    
+
     infoWindow.open(map, this);
     //Click on the addToCrawl button
     $("#addToCrawl").on("click", function(){
-    newCard();
-    var that = this;
-    currentPlaceId = place.place_id;
-    currentPlaceLat = latLong[0];
-    currentPlaceLng = latLong[1];
-    infoWindow.open(map, this);
-    console.log("Don", currentPlaceLat, currentPlaceLng);
-    //Click on the addToCrawl button
-    $("#addToCrawl").on("click", function(){
-       dataPush();
-        newCard(); 
+      that = this;
+      currentPlaceId = place.place_id;
+      currentPlaceLat = latLong.lat;
+      currentPlaceLng = latLong.lng;
+      infoWindow.open(map, this);
     });
-    })
+    
     ajaxCall(popUp, that);
 
     function popUp(that){
@@ -148,7 +143,7 @@ function createMarker(place) {
         + '<p class="hours">' + currentPlaceHours[3] + '</p>'
         + '<p class="hours">' + currentPlaceHours[4] + '</p>'
         + '<p class="hours">' + currentPlaceHours[5] + '</p>'
-        + '<p class="hours">' + currentPlaceHours[6] 
+        + '<p class="hours">' + currentPlaceHours[6]
         + "</p><button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
       infoWindow.open(map, that);
       //Click on the addToCrawl button
@@ -172,13 +167,14 @@ function loadCards() {
 
   //Create a new card div
   database.ref().on("child_added", function(snapshot) {
-  $("#results").append('<div><button class="accordion btn btn-primary btn-block">'+ snapshot.val().name +'  <span class="caret"></span></button><div style="display: none" class="panel" id="card'+[snapshot.key]+'"</div>');
+  $("#results").append('<div><button class="accordion btn btn-primary btn-block">'+ snapshot.val().name +'  <span class="caret"></span></button><div style="display: none" class="panel" id="card'
+    + snapshot.key +'"</div>');
   // $("#card"+[snapshot.key]).append(snapshot.val().photo);
   // $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
   $("#card"+[snapshot.key]).append('<h5>Rating: ' + snapshot.val().rating + ' out of 5</h5></div>');
 
   // $("#card"+[snapshot.key]).append('<p>&quot;' + snapshot.val().review + '&quot;</p><p class="author"> -' +snapshot.val().author+ "</p>");
-  
+
   $("#card"+[snapshot.key]).append('<h5>Hours of Operation</h5>');
   $("#card"+[snapshot.key]).append('<p class="hours">' + snapshot.val().hoursOfOperation[0] + '</p>');
   $("#card"+[snapshot.key]).append('<p class="hours">' + snapshot.val().hoursOfOperation[1] + '</p>');
@@ -187,9 +183,9 @@ function loadCards() {
   $("#card"+[snapshot.key]).append('<p class="hours">' + snapshot.val().hoursOfOperation[4] + '</p>');
   $("#card"+[snapshot.key]).append('<p class="hours">' + snapshot.val().hoursOfOperation[5] + '</p>');
   $("#card"+[snapshot.key]).append('<p class="hours">' + snapshot.val().hoursOfOperation[6] + '</p>');
-  $("#card"+[snapshot.key]).append('<button class="btn btn-danger btn-sm" id="remove">Remove from Crawl</button>');
-  $("#remove").on("click", function(){
-    removeItem();
+  $("#card"+[snapshot.key]).append('<button class="btn btn-danger btn-sm remove" >Remove from Crawl</button>');
+  $(".remove").on("click", function(){
+    removeItem($(this));
     loadCards();
     });
   var acc = document.getElementsByClassName("accordion");
@@ -210,13 +206,13 @@ function loadCards() {
   // nextCard ++;
   }
 
-  // newCard();
+
 
 //Function to call ajax
 function ajaxCall(genericName, that){
 
 console.log(googlePlacesQuery);
- 
+
   var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
   var googlePlacesQuery = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
   console.log(googlePlacesQuery);
@@ -234,7 +230,7 @@ console.log(googlePlacesQuery);
       currentPlaceReviewTime = response.result.reviews[0].relative_time_description;
       currentPlaceRating = response.result.rating;
       currentPlaceHours = response.result.opening_hours.weekday_text;
-      // newCard();
+
       console.log(response);
       genericName(that);
   });
@@ -242,8 +238,7 @@ console.log(googlePlacesQuery);
 
 //Add card to database
 function dataPush() {
-  console.log("it tried to push");
-  console.log(currentPlaceName);
+
   database.ref().push({
     name: currentPlaceName,
     placeId: currentPlaceId,
@@ -257,9 +252,11 @@ function dataPush() {
   });
 }
 // Function to remove a card from the database
-function removeItem() {
+function removeItem(button) {
   // Now we can get back to that item we just pushed via .child().
-  database.ref().child(pubcrawl.getKey).remove(function(error) {
+ var id = button.parent().attr("id").slice(4);
+ console.log(id);
+  database.ref().child(id).remove(function(error) {
     console.log(error ? "Uh oh!" : "Success!");
   });
 }
@@ -270,4 +267,3 @@ function removeItem() {
 //=======================
 //=======================
 loadCards();
-

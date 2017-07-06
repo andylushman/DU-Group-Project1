@@ -47,6 +47,7 @@ h4 {
   background-color: #8c0ee6;
   font-family: 'Fresca', sans-serif;
   font-size: 18px;
+  margin: 5px;
 }
 
 .panel {
@@ -54,7 +55,6 @@ h4 {
 }
 .results {
   background-color: #82f537;
-  border: 1px solid #000;
   height: 300px;
   overflow: auto;
 }
@@ -80,6 +80,12 @@ input[type="text"] {
   border-radius: 5px;
   padding-left: 10px;
   font-family: 'Fresca', sans-serif;
+}
+
+select {
+  font-family: 'Fresca', sans-serif;
+  border-radius: 5px;
+  padding: 3px 5px;
 }
 .dropdown-menu {
   font-family: 'Fresca', sans-serif;
