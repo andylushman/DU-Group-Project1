@@ -126,19 +126,13 @@ function createMarker(place) {
     infoWindow.open(map, this);
     //Click on the addToCrawl button
     $("#addToCrawl").on("click", function(){
-
-    that = this;
-    currentPlaceId = place.place_id;
-    currentPlaceLat = latLong[0];
-    currentPlaceLng = latLong[1];
-    infoWindow.open(map, this);
-    console.log("Don", currentPlaceLat, currentPlaceLng);
-    return that;
-    //Click on the addToCrawl button
-    $("#addToCrawl").on("click", function(){
-       dataPush();
+      that = this;
+      currentPlaceId = place.place_id;
+      currentPlaceLat = latLong.lat;
+      currentPlaceLng = latLong.lng;
+      infoWindow.open(map, this);
     });
-    })
+    
     ajaxCall(popUp, that);
 
     function popUp(that){
