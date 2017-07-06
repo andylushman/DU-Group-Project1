@@ -18,14 +18,12 @@ var currentPlaceReview;
 var currentPlaceAuthor;
 var currentPlaceHours;
 var currentPlaceRating;
-var nextCard = 0;
 var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
 var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
 var that;
 var currentPlaceReviewTime;
-
-// var nextCard = 0;
 var latLong;
+var markers = [];
 
 
 //=======================
