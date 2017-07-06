@@ -122,11 +122,11 @@ function createMarker(place) {
     console.log("new query is " + googlePlacesQuery);
     ajaxCall();
     infoWindow.setContent("<h4>" + currentPlaceName + ": " + currentPlaceRating + "</h4><button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
-    
+
     infoWindow.open(map, this);
     //Click on the addToCrawl button
     $("#addToCrawl").on("click", function(){
-    newCard();
+
     that = this;
     currentPlaceId = place.place_id;
     currentPlaceLat = latLong[0];
@@ -137,7 +137,6 @@ function createMarker(place) {
     //Click on the addToCrawl button
     $("#addToCrawl").on("click", function(){
        dataPush();
-        newCard(); 
     });
     })
     ajaxCall(popUp, that);
@@ -150,7 +149,7 @@ function createMarker(place) {
         + '<p class="hours">' + currentPlaceHours[3] + '</p>'
         + '<p class="hours">' + currentPlaceHours[4] + '</p>'
         + '<p class="hours">' + currentPlaceHours[5] + '</p>'
-        + '<p class="hours">' + currentPlaceHours[6] 
+        + '<p class="hours">' + currentPlaceHours[6]
         + "</p><button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
       infoWindow.open(map, that);
       //Click on the addToCrawl button
@@ -181,7 +180,7 @@ function loadCards() {
   $("#card"+[snapshot.key]).append('<h5>Rating: ' + snapshot.val().rating + ' out of 5</h5></div>');
 
   // $("#card"+[snapshot.key]).append('<p>&quot;' + snapshot.val().review + '&quot;</p><p class="author"> -' +snapshot.val().author+ "</p>");
-  
+
   $("#card"+[snapshot.key]).append('<h5>Hours of Operation</h5>');
   $("#card"+[snapshot.key]).append('<p class="hours">' + snapshot.val().hoursOfOperation[0] + '</p>');
   $("#card"+[snapshot.key]).append('<p class="hours">' + snapshot.val().hoursOfOperation[1] + '</p>');
@@ -213,13 +212,13 @@ function loadCards() {
   // nextCard ++;
   }
 
-  // newCard();
+
 
 //Function to call ajax
 function ajaxCall(genericName, that){
 
 console.log(googlePlacesQuery);
- 
+
   var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
   var googlePlacesQuery = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
   console.log(googlePlacesQuery);
@@ -237,7 +236,7 @@ console.log(googlePlacesQuery);
       currentPlaceReviewTime = response.result.reviews[0].relative_time_description;
       currentPlaceRating = response.result.rating;
       currentPlaceHours = response.result.opening_hours.weekday_text;
-      // newCard();
+
       console.log(response);
       genericName(that);
   });
