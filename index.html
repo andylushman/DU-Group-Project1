@@ -45,15 +45,13 @@
 			<div class="col-lg-12 form">
 				<form>
 					<input type="text" placeholder="Starter Location" id="startLocation">
-						<button class="dropdown btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-							Travel Type
-							<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-							<li id="walking" value="2000">Walking</li>
-							<li id="bicycle" value="5000">Bicycle</li>
-							<li id="rideshare" value="10000">Rideshare</li>
-						</ul>
+				
+					<select>
+						<option value="">Travel Type</option>
+						<option value="walking">Walking</option>
+						<option value="bicycle">Bicycle</option>
+						<option value="rideshare">Rideshare</option>
+					</select>	
 					<button type="submit" class="btn btn-success" label="submit" input="submit">
 						LOAD MAP
 					</button>
