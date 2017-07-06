@@ -35,6 +35,9 @@ function initMap() {
   //Denver coordinates
   var currentLocation = () => {
     // Try HTML5 geolocation.
+    //Event Listen for when window loads, fire off autoComplete funtion
+    google.maps.event.addDomListener(window, 'load', autoCompleteLocation);
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
@@ -43,12 +46,12 @@ function initMap() {
         };
 
         infoWindow.setPosition(pos);
-        infoWindow.setContent("<img src='./assets/images/starter-icon.png' alt='Smiley face' height='30' width='40px'>");
+        // infoWindow.setContent("<img src='./assets/images/starter-icon.png' alt='Smiley face' height='30' width='40px'>");
         infoWindow.open(map);
         map.setCenter(pos);
         console.log(pos);
         latLong = pos;
-        search();
+        search(latLong);
       }, function() {
         handleLocationError(true, infoWindow, map.getCenter());
       });
@@ -56,35 +59,30 @@ function initMap() {
       // Browser doesn't support Geolocation
       handleLocationError(false, infoWindow, map.getCenter());
     }
-  };//end currentLocation();
+  }//end currentLocation()
 
   //If no geolocation service, run this function
   function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
     infoWindow.setContent(browserHasGeolocation ?
                           'Error: The Geolocation service failed.' :
-                          "Error: Your browser doesn't support geolocation.");
+                          'Error: Your browser doesn\'t support geolocation.');
     infoWindow.open(map);
-  } //end handleLocationError()
+  }; //end handleLocationError()
 
   var denver = {lat:39.7392,lng:-104.9903};
   //Map that is loaded on page
   map = new google.maps.Map(document.getElementById("map"), {
     center: currentLocation(),
-    zoom: zoomLevel
+    zoom: 14
   });
   //
-  infoWindow = new google.maps.InfoWindow();
-  var service = new google.maps.places.PlacesService(map);
-  //Search based on bar
-  function search(){
-    service.nearbySearch({
-      location: latLong,
-      radius: radiusDistance,
-      type: ["bar"]
-    }, callback); //Calls callback function
-  }
-} // End initMap()
+  var youAreHereImage = "<img src='./assets/images/starter-icon.png' alt='Smiley face' height='30' width='40px'>"
+   infoWindow = new google.maps.InfoWindow({
+    content: youAreHereImage
+   });
+    service = new google.maps.places.PlacesService(map);
+}; // End initMap()
 
 
 
@@ -92,16 +90,16 @@ function initMap() {
 function callback(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
-      createMarker(results[i]); //Puts each location in loop through the createMarker function
-    }
-  }
-} //End callback()
+      createMarker(results[i], "./assets/images/beer-512.png"); //Puts each location in loop through the createMarker function
+    };
+  };
+}; //End callback()
 
 //Create Marker Function
-function createMarker(place) {
+function createMarker(place, imgUrl) {
   var placeLoc = place.geometry.location;
   var image = {
-    url: "./assets/images/beer-512.png",
+    url: imgUrl,
     size: new google.maps.Size(71, 71),
     origin: new google.maps.Point(0, 0),
     anchor: new google.maps.Point(17, 34),
@@ -110,14 +108,14 @@ function createMarker(place) {
   var marker = new google.maps.Marker({
     map: map,
     position: place.geometry.location,
-    icon: image,
+    icon: image
   });
+
+  markers.push(marker);
   //When a marker is clicked, run this function
   google.maps.event.addListener(marker, 'click', function() {
     currentPlaceId = place.place_id;
-    console.log(currentPlaceId);
     googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
-    console.log("new query is " + googlePlacesQuery);
     ajaxCall();
     infoWindow.setContent("<h4>" + currentPlaceName + ": " + currentPlaceRating + "</h4><button class='btn btn-primary' id='addToCrawl'>Add To Crawl</button>");
 
@@ -157,9 +155,6 @@ function createMarker(place) {
 
 //Function to load the cards from the database
 function loadCards() {
-  //To help with creating a new id for each card
-  nextCard ++;
-  // console.log(nextCard);
   $("#results").empty();
   $("#results").append("<h4>Here's Your Crawl</h4>");
 
@@ -201,8 +196,83 @@ function loadCards() {
       };
   }
 });
-  // nextCard ++;
-  }
+
+  } //End loadsCards()
+
+  var placeSearch, autocomplete;
+
+//function to prepopulate text from startlocation input
+function autoCompleteLocation () {
+console.log("autocomplete testing");
+var input = document.getElementById('startLocation');
+autocomplete = new google.maps.places.SearchBox(input);
+autocomplete.bindTo("bounds", map);
+// google.maps.event.addDomListener(window, 'load', autoCompleteLocation);
+// getAddressPlace();
+autocomplete.addListener("places_changed", function() {
+  var place = autocomplete.getPlaces();
+  var bounds =  new google.maps.LatLngBounds();
+  console.log("Helloooo World", place)
+
+  markers.forEach(function(mark) {
+    mark.setMap(null);
+  });
+
+
+  // marker = [];
+
+  var image = {
+        url: "./assets/images/starter-icon.png",
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(25, 25)
+      };
+  // places.forEach(function(place){
+    console.log("Are we getting places ???", place[0].geometry)
+    map.setCenter(place[0].geometry.location)
+    map.setZoom(15)
+    search(place[0].geometry.location);
+     marker = new google.maps.Marker({
+            map: map,
+            position: place[0].geometry.location,
+            icon: image,
+          })
+    if(!place[0].geometry) {
+      console.log("no results found!");
+      return
+    }
+
+    if (place[0].geometry.viewport) {
+
+      bounds.union(place[0].geometry.viewport);
+
+    }
+    // })
+  })
+}//End autoCompleteLocation();
+
+//function to get the address of the startLocation input
+
+function getAddressPlace() {
+    // $('#map').fadeIn();
+         console.log(autocomplete.getPlace(),"autocomplete test");
+     lat = autocomplete.getPlace().geometry.location.lat();
+     lng = autocomplete.getPlace().geometry.location.lng();
+    var myLatlng = new google.maps.LatLng(lat, lng);
+    var mapOptions = {
+        zoom: 16,
+        center: myLatlng
+    }
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        title: 'Entered location'
+    });
+    console.log("winner winner chicken dinner");
+
+}
 
 
 
