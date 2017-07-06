@@ -132,7 +132,7 @@ function createMarker(place) {
       currentPlaceLng = latLong.lng;
       infoWindow.open(map, this);
     });
-    
+
     ajaxCall(popUp, that);
 
     function popUp(that){
@@ -264,6 +264,5 @@ function removeItem(button) {
 
 //=======================
 //MAIN PROCESS
-//=======================
 //=======================
 loadCards();
