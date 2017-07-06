@@ -33,7 +33,7 @@ var markers = [];
 //Initalize Function
 function initMap() {
   //Denver coordinates
-  var currentLocation = () => {
+  var currentLocation = function () {
     // Try HTML5 geolocation.
     //Event Listen for when window loads, fire off autoComplete funtion
     google.maps.event.addDomListener(window, 'load', autoCompleteLocation);
