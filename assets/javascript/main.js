@@ -8,6 +8,7 @@ var infoWindow;
 var database = firebase.database();
 var radiusDistance = 2000;
 var zoomLevel = 14;
+var service;
 // var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
 // var googlePlacesQuery = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
 
@@ -42,9 +43,10 @@ function initMap() {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
+        autoCompleteLocation();
 
         infoWindow.setPosition(pos);
-        infoWindow.setContent("<img src='./assets/images/starter-icon.png' alt='Smiley face' height='30' width='40px'>");
+        infoWindow.setContent("<img src='https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Scooby-Doo.png/150px-Scooby-Doo.png' alt='Smiley face' height='50' width='25px'>");
         infoWindow.open(map);
         map.setCenter(pos);
         console.log(pos);
@@ -76,7 +78,7 @@ function initMap() {
   });
   //
   infoWindow = new google.maps.InfoWindow();
-  var service = new google.maps.places.PlacesService(map);
+  service = new google.maps.places.PlacesService(map);
   //Search based on bar
   function search(){
     service.nearbySearch({
@@ -87,7 +89,13 @@ function initMap() {
   }
 } // End initMap()
 
-
+function search(latLong, radiusDistance){
+    service.nearbySearch({
+      location: latLong,
+      radius: radiusDistance,
+      type: ["bar"]
+    }, callback); //Calls callback function
+  }
 
 //Callback function
 function callback(results, status) {
@@ -233,6 +241,60 @@ function loadCards() {
 //   mapScope();
 //   initMap();
 // }
+
+function myLocationMarker (place) {
+ var placeLoc = place.geometry.location;
+  var image = {
+    url: "https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Scooby-Doo.png/150px-Scooby-Doo.png",
+    size: new google.maps.Size(71, 71),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(17, 34),
+    scaledSize: new google.maps.Size(40, 70)
+  };
+  var marker = new google.maps.Marker({
+    map: map,
+    position: place.geometry.location,
+    icon: image,
+  });
+}
+
+
+function autoCompleteLocation () {
+    console.log("autocomplete testing");
+  var input = document.getElementById('startLocation');
+  var autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.bindTo("bounds", map);
+  google.maps.event.addDomListener(window, 'load', autoCompleteLocation);
+
+  autocomplete.addListener('place_changed', function() {
+    infoWindow.close();
+    // marker.setVisible(false);
+    var place = autocomplete.getPlace();
+    console.log(place);
+    if (!place.geometry) {
+      console.log("error");
+    }
+    console.log("My lat and longs", place.geometry.location.lat(), place.geometry.location.lng());
+    var latLong = {
+      lat: place.geometry.location.lat(),
+      lng: place.geometry.location.lng()
+    };
+
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+      myLocationMarker(place);
+      search(latLong, 2000);
+      map.setZoom(15);
+
+
+    } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(15);
+      myLocationMarker(place);
+    }
+  });
+  }
+
 
 //Function to call ajax
 function ajaxCall(genericName, that){
