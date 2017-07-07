@@ -131,7 +131,7 @@ function createMarker(place) {
       currentPlaceLng = latLong.lng;
       infoWindow.open(map, this);
     });
-    
+
     ajaxCall(popUp, that);
 
     function popUp(that){
@@ -203,38 +203,37 @@ function loadCards() {
   // nextCard ++;
   }
 
-function mapScope() {
-  var scope = $(".transportation");
+// function mapScope() {
+//   var scope = $(".transportation");
+//
+//   if (scope = "walking") {
+//     radiusDistance = 2000;
+//     zoomLevel = 14;
+//   } else if (scope = "bicyle") {
+//       radiusDistance = 5000;
+//       zoomLevel = 8;
+//   }
+//     else if (scope = "rideshare") {
+//       radiusDistance = 10000;
+//       zoomLevel = 4;
+//     }
+//     else {
+//       radiusDistance = 2000;
+//       zoomLevel = 14;
+//     }
+//   console.log(scope);
+//   }
+// $(".transportation").on("change", function() {
+//   mapScope();
+// })
 
-  if (scope = "walking") {
-    radiusDistance = 2000;
-    zoomLevel = 14;
-  } else if (scope = "bicyle") {
-      radiusDistance = 5000;
-      zoomLevel = 8;
-  }
-    else if (scope = "rideshare") {
-      radiusDistance = 10000;
-      zoomLevel = 4;
-    }
-    else {
-      radiusDistance = 2000;
-      zoomLevel = 14;
-    } 
-  console.log(scope);
-  }
-$(".transportation").on("change", function() {
-  mapScope();
-})
 
+// function loadMap {
+//   setStarterLocation();
+//   mapScope();
+//   initMap();
+// }
 
-function loadMap {
-  setStarterLocation();
-  mapScope();
-  initMap();
-}
-
-$
 //Function to call ajax
 function ajaxCall(genericName, that){
 
@@ -288,9 +287,19 @@ function removeItem(button) {
   });
 }
 
+function modal(){
+  //If Enter btn is clicked
+  $("#modal-enter").on("click", function (){
+    $("#modal-21").hide();
+    initMap();
+  });
+  //If Exit btn is clicked
+  //User is redirected to...
+}
+
 
 //=======================
 //MAIN PROCESS
 //=======================
-//=======================
 loadCards();
+modal();
