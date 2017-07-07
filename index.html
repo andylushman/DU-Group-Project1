@@ -34,8 +34,9 @@
 	<div class="container-fluid">
 		<!-- Row for Header -->
 		<div class="row">
-			<div class="col-xs-12 header text-center">
-				<h1 class="h1 h1-default">
+			<div class="col-lg-12 header text-center">
+					<img src="assets/images/mysterymachine.png" class="header-icon">
+<h1 class="h1 h1-default">
 					Welcome, Thirsty Travelers!
 				</h1>
 			</div>
@@ -47,11 +48,11 @@
 				<form>
 					<input type="text" placeholder="Starter Location" id="startLocation">
 
-					<select>
+					<select >
 						<option value="">Travel Type</option>
-						<option value="walking">Walking</option>
-						<option value="bicycle">Bicycle</option>
-						<option value="rideshare">Rideshare</option>
+						<option class="transportation" value="walking">Walking</option>
+						<option class="transportation" value="bicycle">Bicycle</option>
+						<option class="transportation" value="rideshare">Rideshare</option>
 					</select>
 					<button type="submit" class="btn btn-success" label="submit" input="submit">
 						LOAD MAP

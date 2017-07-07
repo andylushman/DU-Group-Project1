@@ -1,10 +1,16 @@
 /***********************
     Fonts
 ***********************/
+.header-icon {
+  height: 80px;
+  display: inline-block;
+  margin: -6px 24px 5px 3px;
+}
 
 .h1 {
   font-family: "Luckiest Guy", cursive;
-
+  text-shadow: 4px 3px 6px #fff;
+  display: inline-block;
 }
 
 h4{
@@ -33,6 +39,7 @@ p {
 .btn-success {
   background-color: #82f537;
   color: #8c0ee6;
+  font-weight: 700;
 }
 .map {
   margin: 0;
