@@ -40,25 +40,7 @@
 				</h1>
 			</div>
 		</div>
-		<!-- Row For User Options -->
-		<div class="row">
-			<div class="col-lg-12 form">
-				<form>
-					<input type="text" placeholder="Starter Location" id="startLocation">
-				
-					<select>
-						<option value="">Travel Type</option>
-						<option value="walking">Walking</option>
-						<option value="bicycle">Bicycle</option>
-						<option value="rideshare">Rideshare</option>
-					</select>	
-					<button type="submit" class="btn btn-success" label="submit" input="submit">
-						LOAD MAP
-					</button>
-				</form>
-			</div>
-		</div> <!-- /Row For Options -->
-
+		
 		<!-- Row for Map -->
 		<div class="row">
 			<div class="col-lg-9 map" style="height:500px">
@@ -81,6 +63,16 @@
 			</div>
 		</div>
 
+		<!-- Modal -->
+		<div id="modal-21">
+			<div id="modal-body">
+				<h4>You must be 21 or older to enter!</h4>
+				<p>Exciting adult content ahead...</p>
+				<button id="modal-enter" class="btn-primary btn modal-btn" type="button" class="btn btn-default" data-dismiss="modal">Enter</button>
+				<a href="https://us.coca-cola.com/"><button id="modal-exit" class="btn-primary btn modal-btn" type="button" class="btn btn-default" data-dismiss="modal">Exit</button></a>
+			</div>
+		</div>
+
 	</div> <!-- Container -->
 
 	<!-- Link to Firebase -->
@@ -99,7 +91,7 @@
 	</script>
 
 	<!-- Google Maps API -->
-  <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap&key=AIzaSyCtGuuun2K7tdwePkNEf40B_OBNOGcQYAo" async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCtGuuun2K7tdwePkNEf40B_OBNOGcQYAo" async defer></script>
 
 	<!-- Our Javascript -->
 	<script src="assets/javascript/main.js"></script>
