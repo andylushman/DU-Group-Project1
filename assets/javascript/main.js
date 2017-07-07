@@ -227,14 +227,14 @@ $(".transportation").on("change", function() {
   mapScope();
 })
 
-// function loadMap {
-//   setStarterLocation();
-//   mapScope();
-//   initMap();
-// }
 
-// $
+function loadMap {
+  setStarterLocation();
+  mapScope();
+  initMap();
+}
 
+$
 //Function to call ajax
 function ajaxCall(genericName, that){
 
