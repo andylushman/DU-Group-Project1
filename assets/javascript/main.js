@@ -8,9 +8,6 @@ var infoWindow;
 var database = firebase.database();
 var radiusDistance = 2000;
 var zoomLevel = 14;
-// var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
-// var googlePlacesQuery = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
-
 var currentPlaceId;
 var currentPlaceImage;
 var currentPlaceName;
@@ -22,8 +19,6 @@ var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
 var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
 var that;
 var currentPlaceReviewTime;
-
-// var nextCard = 0;
 var latLong;
 
 
@@ -52,11 +47,11 @@ function initMap() {
         search();
       }, function() {
         handleLocationError(true, infoWindow, map.getCenter());
-      });
+        });
     } else {
       // Browser doesn't support Geolocation
       handleLocationError(false, infoWindow, map.getCenter());
-    }
+      }
   };//end currentLocation();
 
   //If no geolocation service, run this function
