@@ -18,7 +18,6 @@ var currentPlaceReview;
 var currentPlaceAuthor;
 var currentPlaceHours;
 var currentPlaceRating;
-var nextCard = 0;
 var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
 var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
 var that;
@@ -160,8 +159,6 @@ function createMarker(place) {
 //Function to load the cards from the database
 function loadCards() {
   //To help with creating a new id for each card
-  nextCard ++;
-  // console.log(nextCard);
   $("#results").empty();
   $("#results").append("<h4>Here's Your Crawl</h4>");
 
@@ -206,7 +203,37 @@ function loadCards() {
   // nextCard ++;
   }
 
+function mapScope() {
+  var scope = $(".transportation");
 
+  if (scope = "walking") {
+    radiusDistance = 2000;
+    zoomLevel = 14;
+  } else if (scope = "bicyle") {
+      radiusDistance = 5000;
+      zoomLevel = 8;
+  }
+    else if (scope = "rideshare") {
+      radiusDistance = 10000;
+      zoomLevel = 4;
+    }
+    else {
+      radiusDistance = 2000;
+      zoomLevel = 14;
+    } 
+  console.log(scope);
+  }
+$(".transportation").on("change", function() {
+  mapScope();
+})
+
+// function loadMap {
+//   setStarterLocation();
+//   mapScope();
+//   initMap();
+// }
+
+// $
 
 //Function to call ajax
 function ajaxCall(genericName, that){
