@@ -234,7 +234,7 @@ function loadCards() {
 //Function to call ajax
 function ajaxCall(genericName, that){
 
-console.log(googlePlacesQuery);
+  console.log(googlePlacesQuery);
 
   var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
   var googlePlacesQuery = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
@@ -256,7 +256,7 @@ console.log(googlePlacesQuery);
 
       console.log(response);
       genericName(that);
-  });
+    });
 } //end ajax()
 
 //Add card to database
@@ -273,12 +273,14 @@ function dataPush() {
     dateAdded: firebase.database.ServerValue.TIMESTAMP,
     reviewTime: currentPlaceReviewTime
   });
-}
+} //End dataPush()
+
 // Function to remove a card from the database
 function removeItem(button) {
   // Now we can get back to that item we just pushed via .child().
- var id = button.parent().attr("id").slice(4);
- console.log(id);
+  var id = button.parent().attr("id").slice(4);
+  console.log(id);
+
   database.ref().child(id).remove(function(error) {
     console.log(error ? "Uh oh!" : "Success!");
   });
@@ -291,12 +293,12 @@ function modal(){
     initMap();
   });
   //If Exit btn is clicked
-  //User is redirected to...
+  //User is redirected to another site
 }
-
 
 //=======================
 //MAIN PROCESS
 //=======================
+
 loadCards();
 modal();
