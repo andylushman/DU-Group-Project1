@@ -8,9 +8,6 @@ var infoWindow;
 var database = firebase.database();
 var radiusDistance = 2000;
 var zoomLevel = 14;
-// var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
-// var googlePlacesQuery = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
-
 var currentPlaceId;
 var currentPlaceImage;
 var currentPlaceName;
@@ -22,8 +19,6 @@ var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
 var googlePlacesQuery = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
 var that;
 var currentPlaceReviewTime;
-
-// var nextCard = 0;
 var latLong;
 
 
@@ -52,19 +47,19 @@ function initMap() {
         search();
       }, function() {
         handleLocationError(true, infoWindow, map.getCenter());
-      });
+        });
     } else {
       // Browser doesn't support Geolocation
       handleLocationError(false, infoWindow, map.getCenter());
-    }
+      }
   };//end currentLocation();
 
   //If no geolocation service, run this function
   function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
     infoWindow.setContent(browserHasGeolocation ?
-                          'Error: The Geolocation service failed.' :
-                          "Error: Your browser doesn't support geolocation.");
+      'Error: The Geolocation service failed.' :
+      "Error: Your browser doesn't support geolocation.");
     infoWindow.open(map);
   } //end handleLocationError()
 
@@ -74,7 +69,7 @@ function initMap() {
     center: currentLocation(),
     zoom: zoomLevel
   });
-  //
+
   infoWindow = new google.maps.InfoWindow();
   var service = new google.maps.places.PlacesService(map);
   //Search based on bar
@@ -86,8 +81,6 @@ function initMap() {
     }, callback); //Calls callback function
   }
 } // End initMap()
-
-
 
 //Callback function
 function callback(results, status) {
@@ -108,11 +101,13 @@ function createMarker(place) {
     anchor: new google.maps.Point(17, 34),
     scaledSize: new google.maps.Size(25, 25)
   };
+
   var marker = new google.maps.Marker({
     map: map,
     position: place.geometry.location,
     icon: image,
   });
+
   //When a marker is clicked, run this function
   google.maps.event.addListener(marker, 'click', function() {
     currentPlaceId = place.place_id;
@@ -152,8 +147,8 @@ function createMarker(place) {
         infoWindow.close(map, that);
 
       });
-    }
-  });
+    } //End popUp()
+  }); //End addListener()
 } //end createMarker()
 
 //Function to load the cards from the database
@@ -165,13 +160,11 @@ function loadCards() {
   //Create a new card div
   database.ref().on("child_added", function(snapshot) {
   $("#results").append('<div><button class="accordion btn btn-primary btn-block">'+ snapshot.val().name +'  <span class="caret"></span></button><div style="display: none" class="panel" id="card'
-    + snapshot.key +'"</div>');
-  // $("#card"+[snapshot.key]).append(snapshot.val().photo);
-  // $("#results").append('<img src="' + currentPlaceImage + '" class="place-image" id="placeImage" style="width:100%">');
+  + snapshot.key +'"</div>');
+
+  //Rating for Card
   $("#card"+[snapshot.key]).append('<h5>Rating: ' + snapshot.val().rating + ' out of 5</h5></div>');
-
-  // $("#card"+[snapshot.key]).append('<p>&quot;' + snapshot.val().review + '&quot;</p><p class="author"> -' +snapshot.val().author+ "</p>");
-
+  //Hours of Operation for Card
   $("#card"+[snapshot.key]).append('<h5>Hours of Operation</h5>');
   $("#card"+[snapshot.key]).append('<p class="hours">' + snapshot.val().hoursOfOperation[0] + '</p>');
   $("#card"+[snapshot.key]).append('<p class="hours">' + snapshot.val().hoursOfOperation[1] + '</p>');
@@ -181,27 +174,31 @@ function loadCards() {
   $("#card"+[snapshot.key]).append('<p class="hours">' + snapshot.val().hoursOfOperation[5] + '</p>');
   $("#card"+[snapshot.key]).append('<p class="hours">' + snapshot.val().hoursOfOperation[6] + '</p>');
   $("#card"+[snapshot.key]).append('<button class="btn btn-danger btn-sm remove" >Remove from Crawl</button>');
+
+  //Remove button
   $(".remove").on("click", function(){
     removeItem($(this));
     loadCards();
-    });
+  });
+
+  //Accordion
   var acc = document.getElementsByClassName("accordion");
   var i;
 
   for (i = 0; i < acc.length; i++) {
-      acc[i].onclick = function(){
-          this.classList.toggle("active");
-          var panel = this.nextElementSibling;
-          if (panel.style.display === "block") {
-              panel.style.display = "none";
-          } else {
-              panel.style.display = "block";
-          }
-      };
-  }
-});
-  // nextCard ++;
-  }
+    acc[i].onclick = function(){
+      this.classList.toggle("active");
+      var panel = this.nextElementSibling;
+      if (panel.style.display === "block") {
+        panel.style.display = "none";
+      } else {
+          panel.style.display = "block";
+        }
+    };
+  } //End for loop()
+
+  }); //End database.ref()
+} //End loadCards()
 
 // function mapScope() {
 //   var scope = $(".transportation");
@@ -237,7 +234,7 @@ function loadCards() {
 //Function to call ajax
 function ajaxCall(genericName, that){
 
-console.log(googlePlacesQuery);
+  console.log(googlePlacesQuery);
 
   var googlePlacesKey = "AIzaSyAayhY8ruruLoqLHOu49qli99n4lw2FjBQ";
   var googlePlacesQuery = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=" + currentPlaceId + "&key=" + googlePlacesKey;
@@ -259,7 +256,7 @@ console.log(googlePlacesQuery);
 
       console.log(response);
       genericName(that);
-  });
+    });
 } //end ajax()
 
 //Add card to database
@@ -276,12 +273,14 @@ function dataPush() {
     dateAdded: firebase.database.ServerValue.TIMESTAMP,
     reviewTime: currentPlaceReviewTime
   });
-}
+} //End dataPush()
+
 // Function to remove a card from the database
 function removeItem(button) {
   // Now we can get back to that item we just pushed via .child().
- var id = button.parent().attr("id").slice(4);
- console.log(id);
+  var id = button.parent().attr("id").slice(4);
+  console.log(id);
+
   database.ref().child(id).remove(function(error) {
     console.log(error ? "Uh oh!" : "Success!");
   });
@@ -294,12 +293,12 @@ function modal(){
     initMap();
   });
   //If Exit btn is clicked
-  //User is redirected to...
+  //User is redirected to another site
 }
-
 
 //=======================
 //MAIN PROCESS
 //=======================
+
 loadCards();
 modal();

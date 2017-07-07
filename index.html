@@ -1,122 +1,119 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-	<meta lang="en-us">
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=yes">
-	<title class="fa fa-check-square" aria-hidden="true">Brewery Tour</title>
-	<link rel="shortcut icon" href="assets/images/beer-512.png">
-	<link href="https://fonts.googleapis.com/css?family=Fresca|Luckiest+Guy" rel="stylesheet">
-	<!-- Font Awesome -->
- 	<script src="https://use.fontawesome.com/a1ae226c56.js"></script>
+	<head>
+		<meta lang="en-us">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=yes">
+		<title class="fa fa-check-square" aria-hidden="true">Brewery Tour</title>
+		<link rel="shortcut icon" href="assets/images/beer-512.png">
+		<link href="https://fonts.googleapis.com/css?family=Fresca|Luckiest+Guy" rel="stylesheet">
+		<!-- Font Awesome -->
+	 	<script src="https://use.fontawesome.com/a1ae226c56.js"></script>
 
-	<!-- jQuery -->
-	<script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
+		<!-- jQuery -->
+		<script
+	  src="https://code.jquery.com/jquery-3.2.1.min.js"
+	  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	  crossorigin="anonymous"></script>
 
-	<!-- jQuery UI -->
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<!-- jQuery UI -->
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-	<!-- Latest compiled and minified BootStrap -->
-	<!-- BootStrap CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<!-- Bootstrap JS -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<!-- Latest compiled and minified BootStrap -->
+		<!-- BootStrap CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<!-- Bootstrap JS -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-	<!-- Our CSS -->
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-</head>
+		<!-- Our CSS -->
+		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	</head>
 
-<body>
-	<div class="container-fluid">
-		<!-- Row for Header -->
-		<div class="row">
-			<div class="col-lg-12 header text-center">
+	<body>
+		<div class="container-fluid">
+			<!-- Row for Header -->
+			<div class="row">
+				<div class="col-lg-12 header text-center">
 					<img src="assets/images/mysterymachine.png" class="header-icon">
-<h1 class="h1 h1-default">
-					Welcome, Thirsty Travelers!
-				</h1>
-			</div>
-		</div>
+					<h1 class="h1 h1-default">Welcome, Thirsty Travelers!</h1>
+				</div>
+			</div> <!--/Header-->
 
-		<!-- Row For User Options
-		<div class="row">
-			<div class="col-lg-12 form">
-				<form>
-					<input type="text" placeholder="Starter Location" id="startLocation">
+			<!-- Row For User Options
+			<div class="row">
+				<div class="col-lg-12 form">
+					<form>
+						<input type="text" placeholder="Starter Location" id="startLocation">
 
-					<select >
-						<option value="">Travel Type</option>
-						<option class="transportation" value="walking">Walking</option>
-						<option class="transportation" value="bicycle">Bicycle</option>
-						<option class="transportation" value="rideshare">Rideshare</option>
-					</select>
-					<button type="submit" class="btn btn-success" label="submit" input="submit">
-						LOAD MAP
-					</button>
-				</form>
-			</div>
-		</div>  /Row For Options -->
+						<select >
+							<option value="">Travel Type</option>
+							<option class="transportation" value="walking">Walking</option>
+							<option class="transportation" value="bicycle">Bicycle</option>
+							<option class="transportation" value="rideshare">Rideshare</option>
+						</select>
+						<button type="submit" class="btn btn-success" label="submit" input="submit">
+							LOAD MAP
+						</button>
+					</form>
+				</div>
+			</div>  /Row For Options -->
 
-		<!-- Row for Map -->
-		<div class="row">
-			<div class="col-lg-9 map" style="height:500px">
-				<!-- Map -->
-				<div id="map"></div>
-			</div>
+			<!-- Row for Map and Agenda -->
+			<div class="row">
+				<div class="col-lg-9 map" style="height:500px">
+					<!-- Map -->
+					<div id="map"></div>
+				</div>
 
-		<!--  Pub Crawl Agenda -->
-			<div class="col-lg-3 results" id="results" style="height:500px">
-				<h4>
-					Here's Your Crawl!
-				</h4>
-			</div>
-		</div>
+			<!--  Pub Crawl Agenda -->
+				<div class="col-lg-3 results" id="results" style="height:500px">
+					<h4>Here's Your Crawl!</h4>
+				</div>
+			</div> <!--/Map and Agenda-->
 
-		<!-- Row for Footer -->
-		<div class="row">
-			<div class="col-lg-12 footer text-center">
-				<p>&copy; Copyright 2017 Thirsty Travelers</p>
-			</div>
-		</div>
+			<!-- Row for Footer -->
+			<div class="row">
+				<div class="col-lg-12 footer text-center">
+					<p>&copy; Copyright 2017 Thirsty Travelers</p>
+				</div>
+			</div> <!--/Footer-->
 
-		<!-- Modal -->
-		<div id="modal-21">
-			<div id="modal-body">
-				<h4>You must be 21 or older to enter!</h4>
-				<p>Exciting adult content ahead...</p>
-				<button id="modal-enter" class="btn-primary btn modal-btn" type="button" class="btn btn-default" data-dismiss="modal">Enter</button>
-				<a href="https://www.drpepper.com/en"><button id="modal-exit" class="btn-primary btn modal-btn" type="button" class="btn btn-default" data-dismiss="modal">Exit</button></a>
-			</div>
-		</div>
+			<!-- Modal -->
+			<div id="modal-21">
+				<div id="modal-body">
+					<h4>You must be 21 or older to enter!</h4>
+					<p>Exciting adult content ahead...</p>
+					<button id="modal-enter" class="btn-primary btn modal-btn" type="button" class="btn btn-default" data-dismiss="modal">Enter</button>
+					<a href="https://www.drpepper.com/en"><button id="modal-exit" class="btn-primary btn modal-btn" type="button" class="btn btn-default" data-dismiss="modal">Exit</button></a>
+				</div>
+			</div> <!--/Modal-->
 
-	</div> <!-- Container -->
+		</div> <!-- Container -->
 
-	<!-- Link to Firebase -->
-	<script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
-	<script>
-	  // Initialize Firebase
-	  var config = {
-	    apiKey: "AIzaSyCX2m5h11YLNMZ9rBwroti06vU5Kva2xMU",
-	    authDomain: "pubcrawl-8c3f9.firebaseapp.com",
-	    databaseURL: "https://pubcrawl-8c3f9.firebaseio.com",
-	    projectId: "pubcrawl-8c3f9",
-	    storageBucket: "",
-	    messagingSenderId: "631317290849"
-	  };
-	firebase.initializeApp(config);
-	</script>
+		<!-- Link to Firebase -->
+		<script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+		<script>
+		  // Initialize Firebase
+		  var config = {
+		    apiKey: "AIzaSyCX2m5h11YLNMZ9rBwroti06vU5Kva2xMU",
+		    authDomain: "pubcrawl-8c3f9.firebaseapp.com",
+		    databaseURL: "https://pubcrawl-8c3f9.firebaseio.com",
+		    projectId: "pubcrawl-8c3f9",
+		    storageBucket: "",
+		    messagingSenderId: "631317290849"
+		  };
+		firebase.initializeApp(config);
+		</script>
 
-	<!-- Google Maps API -->
-  <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCtGuuun2K7tdwePkNEf40B_OBNOGcQYAo" async defer></script>
+		<!-- Google Maps API -->
+	  <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCtGuuun2K7tdwePkNEf40B_OBNOGcQYAo" async defer></script>
 
-	<!-- Our Javascript -->
-	<script src="assets/javascript/main.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+		<!-- Our Javascript -->
+		<script src="assets/javascript/main.js"></script>
+		<!-- Firebase -->
+		<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
 
-</body>
+	</body>
 
 </html>
