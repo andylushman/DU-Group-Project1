@@ -261,8 +261,19 @@ function removeItem(button) {
   });
 }
 
+function modal(){
+  //If Enter btn is clicked
+  $("#modal-enter").on("click", function (){
+    $("#modal-21").hide();
+    initMap();
+  });
+  //If Exit btn is clicked
+  //User is redirected to...
+}
+
 
 //=======================
 //MAIN PROCESS
 //=======================
 loadCards();
+modal();
