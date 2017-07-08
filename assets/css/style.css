@@ -22,6 +22,15 @@ h5 {
 p {
   font-family: "Fresca", sans-serif;
 }
+
+#directions {
+  display: inline-block;
+  color: white;
+  font-family: 'Fresca', sans-serif;
+  font-size: 18px;
+  margin: 5px;
+}
+
 /***********************
     Page Layout
 ***********************/
