@@ -16,9 +16,11 @@
 h4{
   font-family: "Luckiest Guy", cursive;
 }
+
 h5 {
   font-family: "Luckiest Guy", cursive;
 }
+
 p {
   font-family: "Fresca", sans-serif;
 }
@@ -34,7 +36,6 @@ p {
 /***********************
     Page Layout
 ***********************/
-
 .form {
   background-color: #8c0ee6;
   padding: 5px;
@@ -50,6 +51,7 @@ p {
   color: #8c0ee6;
   font-weight: 700;
 }
+
 .map {
   margin: 0;
   padding: 0;
@@ -69,6 +71,7 @@ h4 {
 .panel {
   text-align: center;
 }
+
 .results {
   background-color: #82f537;
   height: 300px;
@@ -84,7 +87,6 @@ h4 {
 /***********************
     Maps
 ***********************/
-
 #map {
   height: 300px;
   width: 100%;
@@ -92,6 +94,7 @@ h4 {
   width: 100%
   border: 1px solid #000;
 }
+
 input[type="text"] {
   border-radius: 5px;
   padding-left: 10px;
@@ -103,6 +106,7 @@ select {
   border-radius: 5px;
   padding: 3px 5px;
 }
+
 .dropdown-menu {
   font-family: 'Fresca', sans-serif;
 }
@@ -115,6 +119,7 @@ select {
   margin-left: 5px;
   line-height: 8px;
 }
+
 .author {
   text-align: right;
   font-style: italic;
